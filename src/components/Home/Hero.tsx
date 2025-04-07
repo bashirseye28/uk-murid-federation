@@ -5,7 +5,7 @@ export default function Hero() {
     <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <Image
-        src="/hero.jpg"
+        src="/hero.svg"
         alt="Bamba Day UK 2025 Hero Background"
         fill
         className="object-cover z-0 brightness-75"

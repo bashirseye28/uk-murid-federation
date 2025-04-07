@@ -1,8 +1,8 @@
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar/Navbar'
+import Footer from '@/components/Footer/Footer'
 
-// ✅ Define global SEO metadata
 export const metadata: Metadata = {
   title: 'UK MURID FEDERATION',
   description: 'Official website of the UK Murid Communities Federation, promoting the teachings of Cheikh Ahmadou Bamba and uniting Mourid Dahiras across the UK.',
@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'UK Murid Federation' }],
   creator: 'UK Murid Federation',
-  metadataBase: new URL('https://ukmurid.org'), // Replace with your real domain
+  metadataBase: new URL('https://ukmurid.org'),
   openGraph: {
     title: 'UK MURID FEDERATION',
     description: 'Connecting Mourid Dahiras in the UK to the spiritual legacy of Cheikh Ahmadou Bamba.',
-    url: 'https://ukmurid.org', // Replace with your domain
+    url: 'https://ukmurid.org',
     siteName: 'UK Murid Federation',
     images: [
       {
@@ -48,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans bg-white text-slate-900 antialiased">
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )
