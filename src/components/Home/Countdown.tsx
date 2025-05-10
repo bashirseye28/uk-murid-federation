@@ -10,9 +10,9 @@ export default function Countdown() {
     seconds: '00',
   })
 
-  const eventDate = new Date('2025-06-28T00:00:00').getTime()
-
   useEffect(() => {
+    const eventDate = new Date('2025-06-28T00:00:00').getTime()
+
     const timer = setInterval(() => {
       const now = new Date().getTime()
       const distance = eventDate - now
@@ -41,7 +41,7 @@ export default function Countdown() {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, []) // ✅ clean: no dependency warning now!
 
   return (
     <div className="grid grid-cols-4 gap-4 justify-center mt-4 mb-6">

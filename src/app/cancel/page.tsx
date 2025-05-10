@@ -23,7 +23,7 @@ export default function CancelPage() {
 
         {/* Message */}
         <p className="text-slate-600 mb-4">
-          It seems your donation process was not finished. Don't worry—you can try again at any time.
+        It seems your donation process was not finished. Don&apos;t worry—you can try again at any time.
         </p>
 
         <p className="text-sm text-slate-500 mb-6">

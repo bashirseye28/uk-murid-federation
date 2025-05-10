@@ -1,68 +1,68 @@
-'use client'
+"use client";
 
-import { useRef, useState } from 'react'
-import emailjs from '@emailjs/browser'
-import { motion } from 'framer-motion'
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 export default function ContactForm() {
-  const formRef = useRef<HTMLFormElement>(null)
-  const [isSent, setIsSent] = useState(false)
-  const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isSent, setIsSent] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSent(false)
-    setError(false)
-    setLoading(true)
+    e.preventDefault();
+    setIsSent(false);
+    setError(false);
+    setLoading(true);
 
-    const formData = new FormData(formRef.current!)
-    const honeypot = formData.get('honeypot')
+    const formData = new FormData(formRef.current!);
+    const honeypot = formData.get("honeypot");
 
     // 🛡️ Honeypot check
     if (honeypot) {
-      console.log('Bot detected, ignoring submission.')
-      setLoading(false)
-      return
+      console.log("Bot detected, ignoring submission.");
+      setLoading(false);
+      return;
     }
 
     try {
       // 1️⃣ Send to admin
       await emailjs.sendForm(
-        'service_da47nxt',      // ✅ Your Service ID
-        'template_i5n715u',     // ✅ Admin template (Contact_Admin)
+        "service_da47nxt", // ✅ Your Service ID
+        "template_i5n715u", // ✅ Admin template (Contact_Admin)
         formRef.current!,
-        'LDXWWULCFG4rGteBF'     // ✅ Your Public Key
-      )
+        "LDXWWULCFG4rGteBF" // ✅ Your Public Key
+      );
 
       // 2️⃣ Send confirmation to user
       try {
         await emailjs.send(
-          'service_da47nxt',      // ✅ Your Service ID
-          'template_fypfrtn',     // ✅ Auto-Reply template (Contact_Confirmation)
+          "service_da47nxt", // ✅ Your Service ID
+          "template_fypfrtn", // ✅ Auto-Reply template (Contact_Confirmation)
           {
-            name: formData.get('name'),
-            email: formData.get('email'),  // ✅ This must match your EmailJS template field
-            subject: formData.get('title'),
-            message: formData.get('message'),
+            name: formData.get("name"),
+            email: formData.get("email"), // ✅ This must match your EmailJS template field
+            subject: formData.get("title"),
+            message: formData.get("message"),
           },
-          'LDXWWULCFG4rGteBF'
-        )
+          "LDXWWULCFG4rGteBF"
+        );
       } catch (userErr) {
-        console.error('User confirmation email failed:', userErr)
+        console.error("User confirmation email failed:", userErr);
         // Not blocking success if user email fails
       }
 
-      console.log('Admin + User emails sent.')
-      setIsSent(true)
-      formRef.current?.reset()
+      console.log("Admin + User emails sent.");
+      setIsSent(true);
+      formRef.current?.reset();
     } catch (err) {
-      console.error('Admin email failed:', err)
-      setError(true)
+      console.error("Admin email failed:", err);
+      setError(true);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <section className="py-16 px-6 bg-gray-50">
@@ -81,7 +81,8 @@ export default function ContactForm() {
             className="mb-4 text-green-600 text-center text-sm font-medium"
             aria-live="polite"
           >
-            ✅ Thank you! Your message has been received successfully. We'll be in touch soon.
+            ✅ Thank you! Your message has been received successfully.
+            We&apos;ll be in touch soon.
           </div>
         )}
 
@@ -90,8 +91,12 @@ export default function ContactForm() {
             className="mb-4 text-red-500 text-center text-sm font-medium"
             aria-live="polite"
           >
-            ⚠️ Oops, something went wrong while sending your message. Please try again later or email us directly at{' '}
-            <a href="mailto:mouride.uk@gmail.com" className="underline">mouride.uk@gmail.com</a>.
+            ⚠️ Oops, something went wrong while sending your message. Please try
+            again later or email us directly at{" "}
+            <a href="mailto:mouride.uk@gmail.com" className="underline">
+              mouride.uk@gmail.com
+            </a>
+            .
           </div>
         )}
 
@@ -100,13 +105,16 @@ export default function ContactForm() {
           <input
             type="text"
             name="honeypot"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             tabIndex={-1}
             autoComplete="off"
           />
 
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-slate-700 mb-1"
+            >
               Full Name
             </label>
             <input
@@ -119,7 +127,10 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-slate-700 mb-1"
+            >
               Email Address
             </label>
             <input
@@ -132,7 +143,10 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-slate-700 mb-1"
+            >
               Subject
             </label>
             <input
@@ -145,7 +159,10 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1">
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-slate-700 mb-1"
+            >
               Message
             </label>
             <textarea
@@ -163,11 +180,11 @@ export default function ContactForm() {
               disabled={loading}
               className="inline-block bg-mourid-green text-white px-6 py-2 rounded-md text-sm font-semibold hover:bg-mourid-blue transition disabled:opacity-50"
             >
-              {loading ? 'Sending...' : 'Send Message'}
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </div>
         </form>
       </motion.div>
     </section>
-  )
+  );
 }
