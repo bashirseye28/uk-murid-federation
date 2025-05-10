@@ -1,86 +1,63 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import Image from 'next/image'
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { donationCampaigns } from '@/data/donationCampaigns'; // ✅ adjust the import path
 
-const items = [
-  {
-    title: '1 Sheep (Xar)',
-    price: '£150',
-    image: '/sheep.png',
-    note: 'Used for the main spiritual meal of the event.',
-  },
-  {
-    title: 'Water Packs',
-    price: '£15',
-    image: '/water.jpeg',
-    note: 'Refreshments for attendees during the day.',
-  },
-  {
-    title: 'Coffee & Sugar',
-    price: '£10',
-    image: '/coffee.jpg',
-    note: 'Served during hospitality and group zikr.',
-  },
-]
+// ✅ Define a type for donation items
+type DonationItem = {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+};
 
-export default function DonatePreview() {
+export default function RandomDonations() {
+  const [randomDonations, setRandomDonations] = useState<DonationItem[]>([]);
+
+  useEffect(() => {
+    // 1️⃣ Get ONLY Bamba Day items
+    const bambaDayItems: DonationItem[] = donationCampaigns.bambaDay.items;
+
+    // 2️⃣ Shuffle and pick 3
+    const shuffled = bambaDayItems.sort(() => 0.5 - Math.random());
+    setRandomDonations(shuffled.slice(0, 3));
+  }, []);
+
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
-      variants={{
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      className="bg-white py-20"
-    >
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        <h2 className="text-3xl md:text-4xl font-heading text-mourid-green mb-4">
-          Contribute to Bamba Day 2025
+    <section className="py-16 px-6 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold text-mourid-green text-center mb-10">
+          Bamba Day Donation Items
         </h2>
-        <p className="text-base md:text-lg font-sans text-slate-700 mb-10 max-w-2xl mx-auto">
-          Help us prepare for this blessed gathering through your generous support.
-        </p>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-10">
-          {items.map((item, index) => (
-            <div key={index} className="rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition bg-white">
-              <div className="relative w-full h-48">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-5 text-left">
-                <h3 className="text-lg font-semibold text-mourid-green mb-1">{item.title}</h3>
-                <p className="text-sm text-gray-600 mb-2">{item.note}</p>
-                <p className="text-mourid-blue font-bold mb-4">{item.price}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {randomDonations.map(item => (
+            <div key={item.id} className="bg-white shadow border rounded-lg overflow-hidden flex flex-col">
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={600}
+                height={400}
+                className="object-cover w-full h-48"
+              />
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold mb-2 text-mourid-green">{item.title}</h3>
+                  <p className="text-sm text-slate-600 mb-4">{item.description}</p>
+                </div>
                 <Link
-                  href="/donate"
-                  className="inline-block text-sm font-semibold border border-mourid-green text-mourid-green px-4 py-1.5 rounded hover:bg-mourid-green hover:text-white transition"
+                  href={`/donate?item=${encodeURIComponent(item.title)}`}
+                  className="inline-block mt-auto bg-mourid-green text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-mourid-blue transition text-center"
                 >
-                  Donate
+                  Donate Now
                 </Link>
               </div>
             </div>
           ))}
         </div>
-
-        {/* CTA Button */}
-        <Link
-          href="/donate"
-          className="inline-block border border-mourid-green text-mourid-green px-6 py-2 rounded-md text-sm font-semibold hover:bg-mourid-green hover:text-white transition"
-        >
-          View All Contributions
-        </Link>
       </div>
-    </motion.section>
-  )
+    </section>
+  );
 }

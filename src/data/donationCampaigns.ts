@@ -50,18 +50,18 @@ export const donationCampaigns = {
           description: 'Contribute to Addiya to support the Grand Magal of Touba.',
           image: 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746762980/closeup-shot-argali-blurred-background_181624-34583_ytzkhn.jpg',
         },
-        {
-          id: 2,
-          title: 'Transport Support',
-          description: 'Assist with transportation and logistics during the Magal.',
-          image: 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746762337/realistic-plastic-water-bottle-packaging-set-with-isolated-images-branded-transparent-bottles-different-size-vector-illustration_1284-69181_tbz7vv.jpg',
-        },
-        {
-          id: 3,
-          title: 'Food Support',
-          description: 'Help provide meals and essentials for attendees.',
-          image: 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746762268/sack-white-rice-wooden-spoon-place-wooden-floor_1150-34314_o51wir.jpg',
-        },
+        // {
+        //   id: 2,
+        //   title: 'Transport Support',
+        //   description: 'Assist with transportation and logistics during the Magal.',
+        //   image: 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746762337/realistic-plastic-water-bottle-packaging-set-with-isolated-images-branded-transparent-bottles-different-size-vector-illustration_1284-69181_tbz7vv.jpg',
+        // },
+        // {
+        //   id: 3,
+        //   title: 'Food Support',
+        //   description: 'Help provide meals and essentials for attendees.',
+        //   image: 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746762268/sack-white-rice-wooden-spoon-place-wooden-floor_1150-34314_o51wir.jpg',
+        // },
       ],
     },
   
