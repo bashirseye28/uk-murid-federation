@@ -1,7 +1,24 @@
-import '@/styles/globals.css'
-import type { Metadata } from 'next'
-import Navbar from '@/components/Navbar/Navbar'
-import Footer from '@/components/Footer/Footer'
+import '@/styles/globals.css';
+import type { Metadata } from 'next';
+import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
+
+// ✅ Google Fonts via next/font/google
+import { Montserrat, Lato } from 'next/font/google';
+
+// Set up Montserrat
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-montserrat',
+});
+
+// Set up Lato
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-lato',
+});
 
 export const metadata: Metadata = {
   title: 'UK Murid Federation',
@@ -35,23 +52,16 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
-}
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-        {/* Google Fonts: Montserrat + Lato */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`scroll-smooth ${montserrat.variable} ${lato.variable}`}>
       <body className="font-sans bg-white text-slate-900 antialiased">
         <Navbar />
         <main>{children}</main>
         <Footer />
       </body>
     </html>
-  )
+  );
 }
