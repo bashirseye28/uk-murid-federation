@@ -56,7 +56,7 @@ export default function CancelPage() {
 
       {/* Optional Impact Message */}
       <p className="text-xs text-slate-400 mt-8 max-w-sm text-center">
-        Every contribution makes a meaningful difference in supporting the UK Murid Federation’s initiatives. Thank you for your support.
+      Every contribution makes a meaningful difference in supporting the UK Murid Federation&rsquo;s initiatives. Thank you for your support.
       </p>
     </motion.section>
   );
