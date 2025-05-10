@@ -29,7 +29,7 @@ export default function RandomDonations() {
     <section className="py-16 px-6 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-mourid-green text-center mb-10">
-          Bamba Day Donation Items
+          Bamba Day Donation List
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
