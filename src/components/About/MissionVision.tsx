@@ -32,7 +32,7 @@ export default function MissionVision() {
             <h3 className="text-xl font-semibold text-mourid-green">Our Mission</h3>
           </div>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-            To uphold and spread the teachings of Cheikh Ahmadou Bamba, promote spiritual growth,
+            To uphold and spread the teachings of Sheikh Ahmadou Bamba, promote spiritual growth,
             Islamic education, and foster unity, solidarity, and mutual support among Murid Dahiras
             and the wider community across the United Kingdom.
           </p>

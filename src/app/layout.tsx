@@ -23,9 +23,9 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: 'UK Murid Federation',
   description:
-    'Official website of the UK Murid Communities Federation, promoting the teachings of Cheikh Ahmadou Bamba and uniting Murid Dahiras across the United Kingdom.',
+    'Official website of the UK Murid Communities Federation, promoting the teachings of Sheikh Ahmadou Bamba and uniting Murid Dahiras across the United Kingdom.',
   keywords: [
-    'Murid', 'Cheikh Ahmadou Bamba', 'Touba', 'Magal', 'UK Murid Federation',
+    'Murid', 'Sheikh Ahmadou Bamba', 'Touba', 'Magal', 'UK Murid Federation',
     'Bamba Day', 'Addiya', 'Dahira', 'Islam UK', 'Muridiyya', 'Sufism', 'Xassida'
   ],
   authors: [{ name: 'UK Murid Federation' }],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'UK Murid Federation',
     description:
-      'Connecting Murid Dahiras in the UK to the spiritual legacy of Cheikh Ahmadou Bamba.',
+      'Connecting Murid Dahiras in the UK to the spiritual legacy of Sheikh Ahmadou Bamba.',
     url: 'https://ukmurid.org',
     siteName: 'UK Murid Federation',
     images: [

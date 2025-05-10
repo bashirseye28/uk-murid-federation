@@ -41,7 +41,7 @@ export default function DonateHero({ campaignName }: DonateHeroProps) {
 
         <p className="text-white/80 text-base md:text-lg mb-6">
           Your donation strengthens our community and furthers our mission to
-          promote the teachings of Cheikh Ahmadou Bamba across the UK.
+          promote the teachings of Sheikh Ahmadou Bamba across the UK.
         </p>
 
         {/* Campaign badge */}

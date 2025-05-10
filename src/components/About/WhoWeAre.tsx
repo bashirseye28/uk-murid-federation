@@ -20,7 +20,7 @@ export default function WhoWeAre() {
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
             The UK Murid Federation is a unifying body for Murid Dahiras across
             the United Kingdom. Our mission is to uphold the teachings and
-            spiritual legacy of Cheikh Ahmadou Bamba, promote Islamic values,
+            spiritual legacy of Sheikh Ahmadou Bamba, promote Islamic values,
             and foster unity and cooperation among Murid communities.
           </p>
           <p className="text-slate-700 text-sm md:text-base mt-4 leading-relaxed">

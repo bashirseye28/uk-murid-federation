@@ -35,7 +35,7 @@ export default function AboutHero() {
           About Us - Who We Are
         </h1>
         <p className="text-white/80 text-base md:text-lg">
-          Learn more about our mission to unite Murid Dahiras across the United Kingdom and promote the teachings of Cheikh Ahmadou Bamba.
+          Learn more about our mission to unite Murid Dahiras across the United Kingdom and promote the teachings of Sheikh Ahmadou Bamba.
         </p>
       </div>
     </motion.section>
