@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { format } from 'date-fns';
-import jsPDF from 'jspdf';
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { format } from "date-fns";
+import jsPDF from "jspdf";
 
 export default function SuccessPage() {
   const searchParams = useSearchParams();
@@ -18,12 +18,12 @@ export default function SuccessPage() {
   } | null>(null);
 
   useEffect(() => {
-    const donorName = searchParams.get('donor_name') || 'Anonymous';
-    const donorEmail = searchParams.get('donor_email') || 'anonymous@murid.uk';
-    const donorPhone = searchParams.get('donor_phone') || 'N/A';
-    const cause = searchParams.get('cause') || 'General Donation';
-    const amount = searchParams.get('amount') || '10.00';
-    const date = format(new Date(), 'PPPpp');
+    const donorName = searchParams.get("donor_name") || "Anonymous";
+    const donorEmail = searchParams.get("donor_email") || "anonymous@murid.uk";
+    const donorPhone = searchParams.get("donor_phone") || "N/A";
+    const cause = searchParams.get("cause") || "General Donation";
+    const amount = searchParams.get("amount") || "10.00";
+    const date = format(new Date(), "PPPpp");
 
     setDonationDetails({
       donorName,
@@ -41,7 +41,7 @@ export default function SuccessPage() {
     const doc = new jsPDF();
 
     const logoUrl =
-      'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
+      "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png";
     const logoImg = await fetch(logoUrl)
       .then((res) => res.blob())
       .then(
@@ -54,24 +54,26 @@ export default function SuccessPage() {
       );
 
     // Add Logo
-    doc.addImage(logoImg as string, 'PNG', 85, 10, 40, 40);
+    doc.addImage(logoImg as string, "PNG", 85, 10, 40, 40);
 
     let y = 60;
 
     // Title
-    doc.setFontSize(20).setFont('helvetica', 'bold');
-    doc.text('Donation Receipt', 105, y, { align: 'center' });
+    doc.setFontSize(20).setFont("helvetica", "bold");
+    doc.text("Donation Receipt", 105, y, { align: "center" });
 
     // Organization details
     y += 15;
-    doc.setFontSize(12).setFont('helvetica', 'normal');
-    doc.text('UK Murid Federation', 20, y);
+    doc.setFontSize(18).setFont("helvetica", "bold"); // 🔥 Bold & larger
+    doc.text("UK Murid Federation", 20, y);
+
+    y += 9; // Slightly bigger gap because of font size
+    doc.setFontSize(12).setFont("helvetica", "normal");
+    doc.text("Company Number: 13535445", 20, y);
     y += 7;
-    doc.text('Company Number: 13535445', 20, y);
+    doc.text("Email: mouride.uk@gmail.com", 20, y);
     y += 7;
-    doc.text('Email: mouride.uk@gmail.com', 20, y);
-    y += 7;
-    doc.text('Website: https://ukmurid.org', 20, y);
+    doc.text("Website: https://ukmouride.co.uk", 20, y);
 
     // Divider
     y += 10;
@@ -80,9 +82,9 @@ export default function SuccessPage() {
 
     // Donor info
     y += 15;
-    doc.setFont('helvetica', 'bold').text('Donor Information:', 20, y);
+    doc.setFont("helvetica", "bold").text("Donor Information:", 20, y);
     y += 8;
-    doc.setFont('helvetica', 'normal');
+    doc.setFont("helvetica", "normal");
     doc.text(`Donor Name: ${donationDetails.donorName}`, 20, y);
     y += 7;
     doc.text(`Email: ${donationDetails.donorEmail}`, 20, y);
@@ -91,9 +93,9 @@ export default function SuccessPage() {
 
     // Donation info
     y += 10;
-    doc.setFont('helvetica', 'bold').text('Donation Details:', 20, y);
+    doc.setFont("helvetica", "bold").text("Donation Details:", 20, y);
     y += 8;
-    doc.setFont('helvetica', 'normal');
+    doc.setFont("helvetica", "normal");
     doc.text(`Donation Cause: ${donationDetails.cause}`, 20, y);
     y += 7;
     doc.text(`Amount: £${donationDetails.amount}`, 20, y);
@@ -107,25 +109,22 @@ export default function SuccessPage() {
 
     // Thank you message
     y += 12;
-    doc.setFontSize(11).setFont('times', 'italic');
-    doc.text(
-      'May Allah reward you abundantly for your generosity.',
-      105,
-      y,
-      { align: 'center' }
-    );
+    doc.setFontSize(11).setFont("times", "italic");
+    doc.text("May Allah reward you abundantly for your generosity.", 105, y, {
+      align: "center",
+    });
 
     // Footer note
     y += 15;
-    doc.setFontSize(9).setFont('helvetica', 'normal');
+    doc.setFontSize(9).setFont("helvetica", "normal");
     doc.text(
-      'This document serves as an official receipt for your donation. Thank you for supporting UK Murid Federation.',
+      "This document serves as an official receipt for your donation. Thank you for supporting UK Murid Federation.",
       105,
       y,
-      { align: 'center' }
+      { align: "center" }
     );
 
-    doc.save('donation-receipt.pdf');
+    doc.save("donation-receipt.pdf");
   };
 
   if (!donationDetails) {
@@ -155,7 +154,7 @@ export default function SuccessPage() {
         <p className="text-slate-600 mb-6">
           May Allah reward you abundantly for your generosity.
           <br />
-          If you have any questions, feel free to{' '}
+          If you have any questions, feel free to{" "}
           <a
             href="mailto:mouride.uk@gmail.com"
             className="underline text-mourid-green"
@@ -167,19 +166,19 @@ export default function SuccessPage() {
 
         <div className="text-left text-sm text-slate-700 space-y-3 border-t pt-4">
           <p>
-            <span className="font-semibold">Donor Name:</span>{' '}
+            <span className="font-semibold">Donor Name:</span>{" "}
             {donationDetails.donorName}
           </p>
           <p>
-            <span className="font-semibold">Email:</span>{' '}
+            <span className="font-semibold">Email:</span>{" "}
             {donationDetails.donorEmail}
           </p>
           <p>
-            <span className="font-semibold">Phone:</span>{' '}
+            <span className="font-semibold">Phone:</span>{" "}
             {donationDetails.donorPhone}
           </p>
           <p>
-            <span className="font-semibold">Donation Cause:</span>{' '}
+            <span className="font-semibold">Donation Cause:</span>{" "}
             {donationDetails.cause}
           </p>
           <p>
@@ -187,8 +186,7 @@ export default function SuccessPage() {
             {donationDetails.amount}
           </p>
           <p>
-            <span className="font-semibold">Date:</span>{' '}
-            {donationDetails.date}
+            <span className="font-semibold">Date:</span> {donationDetails.date}
           </p>
         </div>
 
