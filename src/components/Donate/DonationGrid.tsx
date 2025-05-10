@@ -20,7 +20,7 @@ export default function DonateGrid({
   onDonate: (item: string) => void
 }) {
   return (
-    <section className="py-16 px-6 bg-white">
+    <section id='list_donation' className="py-16 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-mourid-green text-center mb-10">
           {campaignName} – Choose Your Donation

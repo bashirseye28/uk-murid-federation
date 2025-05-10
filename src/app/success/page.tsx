@@ -11,52 +11,137 @@ export default function SuccessPage() {
   const [donationDetails, setDonationDetails] = useState<{
     donorName: string;
     donorEmail: string;
+    donorPhone?: string;
     cause: string;
     amount: string;
     date: string;
   } | null>(null);
 
   useEffect(() => {
-    // Simulate fetching session data (replace with your real data logic)
     const donorName = searchParams.get("donor_name") || "Anonymous";
-    const donorEmail =
-      searchParams.get("donor_email") || "anonymous@murid.uk";
+    const donorEmail = searchParams.get("donor_email") || "anonymous@murid.uk";
+    const donorPhone = searchParams.get("donor_phone") || "N/A";
     const cause = searchParams.get("cause") || "General Donation";
     const amount = searchParams.get("amount") || "10.00";
     const date = format(new Date(), "PPPpp");
 
-    setDonationDetails({ donorName, donorEmail, cause, amount, date });
+    setDonationDetails({
+      donorName,
+      donorEmail,
+      donorPhone,
+      cause,
+      amount,
+      date,
+    });
   }, [searchParams]);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!donationDetails) return;
 
     const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.text("Donation Receipt", 20, 30);
 
-    doc.setFontSize(12);
-    doc.text("UK Murid Federation", 20, 45);
-    doc.text("Company Number: 12345678", 20, 52);
-    doc.text("Email: mouride.uk@gmail.com", 20, 59);
-    doc.text("Website: https://ukmurid.org", 20, 66);
+    // Load your logo dynamically as an image
+    const logoUrl =
+      "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png";
+    const logoImg = await fetch(logoUrl)
+      .then((res) => res.blob())
+      .then((blob) => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = function () {
+            resolve(reader.result);
+          };
+          reader.readAsDataURL(blob);
+        });
+      });
 
-    doc.setLineWidth(0.5);
-    doc.line(20, 75, 190, 75);
-
-    doc.text(`Donor Name: ${donationDetails.donorName}`, 20, 85);
-    doc.text(`Email: ${donationDetails.donorEmail}`, 20, 92);
-    doc.text(`Donation Cause: ${donationDetails.cause}`, 20, 99);
-    doc.text(`Amount: £${donationDetails.amount}`, 20, 106);
-    doc.text(`Date: ${donationDetails.date}`, 20, 113);
-
-    doc.setFontSize(10);
-    doc.text(
-      "May Allah reward you abundantly for your generosity.",
-      20,
-      130
+    // Add Logo
+    doc.addImage(
+      logoImg as string,
+      "PNG",
+      85,
+      10,
+      40,
+      40 // center and resize the logo
     );
 
+    // Move below logo
+    let y = 60;
+
+    // Title
+    doc.setFontSize(20);
+    doc.setFont("helvetica", "bold");
+    doc.text("Donation Receipt", 105, y, { align: "center" });
+
+    // Organization details
+    y += 15;
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text("UK Murid Federation", 20, y);
+    y += 7;
+    doc.text("Company Number: 13535445", 20, y);
+    y += 7;
+    doc.text("Email: mouride.uk@gmail.com", 20, y);
+    y += 7;
+    doc.text("Website: https://ukmurid.org", 20, y);
+
+    // Line separator
+    y += 10;
+    doc.setLineWidth(0.5);
+    doc.line(20, y, 190, y);
+
+    // Donor details
+    y += 15;
+    doc.setFont("helvetica", "bold");
+    doc.text("Donor Information:", 20, y);
+    y += 8;
+    doc.setFont("helvetica", "normal");
+    doc.text(`Donor Name: ${donationDetails.donorName}`, 20, y);
+    y += 7;
+    doc.text(`Email: ${donationDetails.donorEmail}`, 20, y);
+    y += 7;
+    doc.text(`Phone: ${donationDetails.donorPhone}`, 20, y);
+
+    // Donation details
+    y += 10;
+    doc.setFont("helvetica", "bold");
+    doc.text("Donation Details:", 20, y);
+    y += 8;
+    doc.setFont("helvetica", "normal");
+    doc.text(`Donation Cause: ${donationDetails.cause}`, 20, y);
+    y += 7;
+    doc.text(`Amount: £${donationDetails.amount}`, 20, y);
+    y += 7;
+    doc.text(`Date: ${donationDetails.date}`, 20, y);
+
+    // Footer separator
+    y += 15;
+    doc.setLineWidth(0.3);
+    doc.line(20, y, 190, y);
+
+    // Thank you message
+    y += 12;
+    doc.setFontSize(11);
+    doc.setFont("times", "italic");
+    doc.text(
+      "May Allah reward you abundantly for your generosity.",
+      105,
+      y,
+      { align: "center" }
+    );
+
+    // Legal note
+    y += 15;
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.text(
+      "This document serves as an official receipt for your donation. Thank you for supporting UK Murid Federation.",
+      105,
+      y,
+      { align: "center" }
+    );
+
+    // Save PDF
     doc.save("donation-receipt.pdf");
   };
 
@@ -74,7 +159,7 @@ export default function SuccessPage() {
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <Image
-            src="/logo.png" // Update to your actual logo path
+            src="/logo.png" // ✅ Update to your local logo path if needed
             alt="UK Murid Federation Logo"
             width={100}
             height={100}
@@ -106,6 +191,10 @@ export default function SuccessPage() {
           <p>
             <span className="font-semibold">Email:</span>{" "}
             {donationDetails.donorEmail}
+          </p>
+          <p>
+            <span className="font-semibold">Phone:</span>{" "}
+            {donationDetails.donorPhone}
           </p>
           <p>
             <span className="font-semibold">Donation Cause:</span>{" "}

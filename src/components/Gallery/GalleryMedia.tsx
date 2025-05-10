@@ -36,7 +36,7 @@ export default function GalleryMedia() {
   const [selectedImage, setSelectedImage] = useState<null | typeof images[0]>(null)
 
   return (
-    <section className="py-16 px-6 bg-white">
+    <section id='gallery' className="py-16 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
 
         {/* ====== VIDEOS Section ====== */}

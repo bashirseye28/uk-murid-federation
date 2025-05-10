@@ -4,6 +4,13 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 export default function GalleryHero() {
+  const scrollToGallery = () => {
+    const section = document.getElementById('gallery')
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <motion.section
       initial="hidden"
@@ -34,9 +41,17 @@ export default function GalleryHero() {
         <h1 className="text-3xl md:text-5xl font-heading font-bold mb-4 drop-shadow-md">
           Media Gallery
         </h1>
-        <p className="text-white/80 text-base md:text-lg">
+        <p className="text-white/80 text-base md:text-lg mb-6">
           Discover videos and images that highlight the vibrant spirit and events of Murid Dahiras across the United Kingdom.
         </p>
+
+        {/* CTA Button */}
+        <button
+          onClick={scrollToGallery}
+          className="inline-block border border-white text-white px-6 py-2 rounded-md text-sm font-semibold hover:bg-white hover:text-mourid-green transition"
+        >
+          Explore Gallery
+        </button>
       </div>
     </motion.section>
   )

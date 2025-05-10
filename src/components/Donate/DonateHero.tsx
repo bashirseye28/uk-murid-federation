@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 type DonateHeroProps = {
-  campaignName: string
-}
+  campaignName: string;
+};
 
 export default function DonateHero({ campaignName }: DonateHeroProps) {
   return (
@@ -13,7 +13,7 @@ export default function DonateHero({ campaignName }: DonateHeroProps) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.9, ease: 'easeOut' }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
       variants={{
         hidden: { opacity: 0, y: 40 },
         visible: { opacity: 1, y: 0 },
@@ -40,15 +40,28 @@ export default function DonateHero({ campaignName }: DonateHeroProps) {
         </h1>
 
         <p className="text-white/80 text-base md:text-lg mb-6">
-          Your donation strengthens our community and furthers our mission to promote the teachings of Cheikh Ahmadou Bamba across the UK.
+          Your donation strengthens our community and furthers our mission to
+          promote the teachings of Cheikh Ahmadou Bamba across the UK.
         </p>
 
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white/80 border border-white/10 text-sm">
+        {/* Campaign badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white/80 border border-white/10 text-sm mb-6">
           <span>
-            Now collecting for: <span className="text-white font-semibold">{campaignName}</span>
+            Now collecting for:{" "}
+            <span className="text-white font-semibold">{campaignName}</span>
           </span>
+        </div>
+
+        {/* CTA Button */}
+        <div>
+          <a
+            href="#list_donation"
+            className="inline-block border border-white text-white font-semibold px-6 py-2 rounded-md shadow transition hover:bg-white hover:text-mourid-green"
+          >
+            Donate Now
+          </a>
         </div>
       </div>
     </motion.section>
-  )
+  );
 }
