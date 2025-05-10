@@ -9,7 +9,7 @@ export default function Hero() {
       {/* Background Image and Overlay */}
       <div className="absolute inset-0 w-full h-full">
         <Image
-          src="/famous-tower-bridge-evening-london-england.jpg"
+          src="/banner_federation3.jpg"
           alt="Bamba Day UK 2025 Hero Background"
           fill
           className="object-cover object-top w-full h-full"
