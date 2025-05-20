@@ -23,14 +23,18 @@ export default function SuccessPage({
 }: SuccessPageProps) {
   const handleDownload = async () => {
     const doc = new jsPDF();
-    const logoUrl = 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
+    const logoUrl =
+      "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png";
     const logoImg = await fetch(logoUrl)
-      .then(res => res.blob())
-      .then(blob => new Promise<string>(resolve => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.readAsDataURL(blob);
-      }));
+      .then((res) => res.blob())
+      .then(
+        (blob) =>
+          new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.readAsDataURL(blob);
+          })
+      );
 
     // Logo
     doc.addImage(logoImg, "PNG", 85, 10, 40, 40);
@@ -57,7 +61,7 @@ export default function SuccessPage({
     doc.setLineWidth(0.5);
     doc.line(20, y, 190, y);
 
-    // Donor Info
+    // Donor Information
     y += 15;
     doc.setFont("helvetica", "bold").text("Donor Information:", 20, y);
     y += 8;
@@ -73,7 +77,7 @@ export default function SuccessPage({
     doc.setFont("helvetica", "bold").text("Donation Details:", 20, y);
     y += 8;
     doc.setFont("helvetica", "normal");
-    doc.text(`Donation Cause: ${cause}`, 20, y);
+    doc.text(`Reference: ${cause}`, 20, y);
     y += 7;
     doc.text(`Amount: £${amount}`, 20, y);
     y += 7;
@@ -94,7 +98,7 @@ export default function SuccessPage({
       { align: "center" }
     );
 
-    // Footer
+    // Footer note
     y += 15;
     doc.setFontSize(9).setFont("helvetica", "normal");
     doc.text(
@@ -116,6 +120,7 @@ export default function SuccessPage({
             alt="UK Murid Federation Logo"
             width={100}
             height={100}
+            className="object-contain"
           />
         </div>
 
@@ -126,18 +131,34 @@ export default function SuccessPage({
           May Allah reward you abundantly for your generosity.
           <br />
           If you have any questions, feel free to{' '}
-          <a href="mailto:mouride.uk@gmail.com" className="underline text-mourid-green">
+          <a
+            href="mailto:mouride.uk@gmail.com"
+            className="underline text-mourid-green"
+          >
             contact us
-          </a>.
+          </a>
+          .
         </p>
 
         <div className="text-left text-sm text-slate-700 space-y-3 border-t pt-4">
-          <p><span className="font-semibold">Donor Name:</span> {donorName}</p>
-          <p><span className="font-semibold">Email:</span> {donorEmail}</p>
-          <p><span className="font-semibold">Phone:</span> {donorPhone}</p>
-          <p><span className="font-semibold">Reference:</span> {cause}</p>
-          <p><span className="font-semibold">Amount:</span> £{amount}</p>
-          <p><span className="font-semibold">Date:</span> {date}</p>
+          <p>
+            <span className="font-semibold">Donor Name:</span> {donorName}
+          </p>
+          <p>
+            <span className="font-semibold">Email:</span> {donorEmail}
+          </p>
+          <p>
+            <span className="font-semibold">Phone:</span> {donorPhone}
+          </p>
+          <p>
+            <span className="font-semibold">Reference:</span> {cause}
+          </p>
+          <p>
+            <span className="font-semibold">Amount:</span> £{amount}
+          </p>
+          <p>
+            <span className="font-semibold">Date:</span> {date}
+          </p>
         </div>
 
         <div className="flex justify-center gap-4 mt-6">

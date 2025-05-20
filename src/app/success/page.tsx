@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import SuccessPage from './SuccessPage';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-04-30.basil',
+  apiVersion: '2025-04-30.basil', // updated API version to match Stripe types
 });
 
 export default async function Success({
@@ -17,13 +17,20 @@ export default async function Success({
     redirect('/donate');
   }
 
-  const session = await stripe.checkout.sessions.retrieve(sessionId as string, {
+  // Fetch the Checkout Session + expand PaymentIntent for metadata
+  const session = await stripe.checkout.sessions.retrieve(sessionId, {
     expand: ['payment_intent'],
   });
 
+  // Guard: ensure we have a PaymentIntent
   const pi = session.payment_intent as Stripe.PaymentIntent;
+  if (!pi) {
+    redirect('/donate');
+  }
+
   const meta = pi.metadata;
 
+  // Extract metadata (falling back safely)
   const donorName  = meta.donor_name  || 'Anonymous';
   const donorEmail = session.customer_details?.email || meta.donor_email || '';
   const donorPhone = meta.donor_phone  || 'N/A';
