@@ -12,7 +12,7 @@ type Member = {
 
 const members: Member[] = [
   {
-    name: 'Lamine Ndiaye',
+    name: 'S Lamine Ndiaye',
     title: 'Chairman (Diewrign)',
     image: '/profile.jpg',
     responsibilities: [
@@ -24,7 +24,7 @@ const members: Member[] = [
   },
   // Remaining members...
   {
-    name: 'Srg Khassim Dieng',
+    name: 'S Khassim Dieng',
     title: 'General Secretary',
     image: '/profile.jpg',
     responsibilities: [
@@ -35,7 +35,7 @@ const members: Member[] = [
     ]
   },
   {
-    name: 'Srg Pape Mor Niang',
+    name: 'S Pape Mor Niang',
     title: 'Official Relations Officer',
     image: '/profile.jpg',
     responsibilities: [
@@ -44,7 +44,7 @@ const members: Member[] = [
     ]
   },
   {
-    name: 'Mamadou Mbengue',
+    name: 'S Mamadou Mbengue',
     title: 'Accountant',
     image: '/profile.jpg',
     responsibilities: [
@@ -53,7 +53,7 @@ const members: Member[] = [
     ]
   },
   {
-    name: 'Abdou Salam',
+    name: 'S Abdou Salam Samb',
     title: 'Accountant (Manchester)',
     image: '/profile.jpg',
     responsibilities: [
@@ -61,7 +61,7 @@ const members: Member[] = [
     ]
   },
   {
-    name: 'Fallou Gueye',
+    name: 'S Fallou Gueye',
     title: 'Social Support Officer',
     image: '/profile.jpg',
     responsibilities: [
@@ -71,7 +71,7 @@ const members: Member[] = [
     ]
   },
   {
-    name: 'Talla Gueye',
+    name: 'S Talla Gueye',
     title: 'Fundraising Coordinator',
     image: '/profile.jpg',
     responsibilities: [
@@ -80,7 +80,7 @@ const members: Member[] = [
     ]
   },
   {
-    name: 'Mame Thierno Diaw',
+    name: 'S Mame Thierno Diaw',
     title: 'Fundraising Coordinator',
     image: '/profile.jpg',
     responsibilities: [
@@ -89,7 +89,7 @@ const members: Member[] = [
     ]
   },
   {
-    name: 'Moustapha Gueye',
+    name: 'S Moustapha Gueye',
     title: 'Religious Affairs Officer',
     image: '/profile.jpg',
     responsibilities: [
@@ -131,8 +131,8 @@ export default function OrganisationalStructure() {
                 className="rounded-full mx-auto mb-4 object-cover"
                 unoptimized={isRemote}
               />
-              <h3 className="text-lg font-semibold text-slate-800 text-center">{member.name}</h3>
-              <p className="text-sm text-mourid-green font-medium text-center mb-2">{member.title}</p>
+              <h3 className="text-lg font-semibold text-mourid-green text-center">{member.name}</h3>
+              <p className="text-sm text-mourid-blue font-medium text-center mb-2">{member.title}</p>
 
               <button
                 className="block mx-auto text-xs text-mourid-green hover:underline focus:outline-none"
