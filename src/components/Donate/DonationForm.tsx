@@ -1,132 +1,129 @@
 "use client";
 
-import { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Mail, User, Smartphone, ArrowLeft } from "lucide-react";
 
-type DonationFormProps = {
-  onSubmit: (donorInfo: {
-    name: string;
-    email: string;
-    phone?: string;
-    isAnonymous: boolean;
-  }) => void;
-};
+export interface DonorInfo {
+  name?: string;
+  email: string;
+  phone?: string;
+  isAnonymous: boolean;
+}
 
-export default function DonationForm({ onSubmit }: DonationFormProps) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    isAnonymous: false,
-  });
+interface DonationFormProps {
+  amount?: number;
+  onSubmit: (info: DonorInfo) => void;
+  onBack: () => void;
+}
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+const baseInput =
+  "w-full rounded-lg border border-gray-300 px-10 py-3 text-sm shadow-sm focus:ring-2 focus:ring-mourid-green focus:border-mourid-green";
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+export default function DonationForm({ amount, onSubmit, onBack }: DonationFormProps) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid },
+  } = useForm<DonorInfo>({ mode: "onChange", defaultValues: { isAnonymous: false } });
 
-  const validate = () => {
-    const newErrors: { [key: string]: string } = {};
-    if (!formData.isAnonymous) {
-      if (!formData.name.trim()) newErrors.name = "Name is required.";
-      if (!formData.email.trim()) newErrors.email = "Email is required.";
-    }
-    return newErrors;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
-    if (Object.keys(validationErrors).length === 0) {
-      onSubmit(formData);
-    }
-  };
+  const anonymous = watch("isAnonymous");
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow mb-8">
-      <h3 className="text-lg font-semibold text-mourid-green mb-4 text-center">
-        Donor Information
-      </h3>
-
-      {/* Anonymous Checkbox */}
-      <div className="mb-4 flex items-center gap-2">
-        <input
-          type="checkbox"
-          id="isAnonymous"
-          name="isAnonymous"
-          checked={formData.isAnonymous}
-          onChange={handleChange}
-          className="w-4 h-4"
-        />
-        <label htmlFor="isAnonymous" className="text-sm text-slate-700">
-          Donate anonymously
-        </label>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="mx-auto w-full max-w-md space-y-6 rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-100"
+      noValidate
+    >
+      {/* Header */}
+      <div className="text-center">
+        <h3 className="text-2xl font-bold text-mourid-green">Donor Details</h3>
+        {amount !== undefined && (
+          <p className="mt-1 text-sm text-slate-600">
+            You are donating <span className="font-medium">£{amount.toLocaleString()}</span>
+          </p>
+        )}
       </div>
 
+      {/* Anonymous toggle */}
+      <label className="flex cursor-pointer items-center gap-2 text-sm">
+        <input
+          type="checkbox"
+          {...register("isAnonymous")}
+          className="h-4 w-4 rounded border-gray-300 text-mourid-green focus:ring-mourid-green"
+        />
+        Donate anonymously
+      </label>
+
       {/* Name */}
-      {!formData.isAnonymous && (
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-mourid-green focus:border-mourid-green"
-          />
-          {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+      {!anonymous && (
+        <div>
+          <div className="relative">
+            <User className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-mourid-blue" />
+            <input
+              {...register("name", { required: true })}
+              type="text"
+              placeholder="Enter your full name"
+              className={`${baseInput} ${errors.name ? "border-red-500" : ""}`}
+              aria-label="Full name"
+            />
+          </div>
+          {errors.name && <p className="mt-1 text-xs text-red-600">Name is required.</p>}
         </div>
       )}
 
       {/* Email */}
-      {!formData.isAnonymous && (
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
-            Email Address
-          </label>
+      <div>
+        <div className="relative">
+          <Mail className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-mourid-blue" />
           <input
+            {...register("email", {
+              required: "Email is required.",
+              pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email." },
+            })}
             type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-mourid-green focus:border-mourid-green"
+            placeholder="Enter your email address"
+            className={`${baseInput} ${errors.email ? "border-red-500" : ""}`}
+            aria-label="Email address"
           />
-          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+        </div>
+        {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>}
+      </div>
+
+      {/* Phone */}
+      {!anonymous && (
+        <div>
+          <div className="relative">
+            <Smartphone className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-mourid-blue" />
+            <input
+              {...register("phone")}
+              type="tel"
+              placeholder="Enter your mobile number (optional)"
+              className={baseInput}
+              aria-label="Phone number"
+            />
+          </div>
         </div>
       )}
 
-      {/* Phone (optional) */}
-      {!formData.isAnonymous && (
-        <div className="mb-4">
-          <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1">
-            Phone Number (optional)
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-mourid-green focus:border-mourid-green"
-          />
-        </div>
-      )}
-
-      <button
-        type="submit"
-        className="w-full bg-mourid-green text-white px-6 py-2 rounded-md text-sm font-semibold hover:bg-mourid-blue transition"
-      >
-        Continue to Payment
-      </button>
+      {/* ACTION BUTTONS */}
+      <div className="space-y-3">
+        <button
+          type="submit"
+          disabled={!isValid}
+          className="w-full rounded-lg bg-mourid-green py-3 text-sm font-semibold text-white transition hover:bg-mourid-blue disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Continue to Payment
+        </button>
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex w-full items-center justify-center gap-2 rounded-lg border border-mourid-green py-3 text-sm font-semibold text-mourid-green transition hover:bg-mourid-green hover:text-white"
+        >
+          <ArrowLeft size={16} /> Back to causes
+        </button>
+      </div>
     </form>
   );
 }

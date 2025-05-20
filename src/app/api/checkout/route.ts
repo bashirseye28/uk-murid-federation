@@ -2,80 +2,81 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-// ✅ Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-04-30.basil', // stable API version
+});
+
+type CheckoutBody = {
+  item: { id: number; title: string; price: number; campaign: string };
+  donor: { name?: string; email: string; phone?: string; isAnonymous: boolean };
+};
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    console.log('Incoming checkout request:', body);
+    /* 1️⃣ parse & validate ------------------------------------------------ */
+    const { item, donor } = (await req.json()) as CheckoutBody;
 
-    const { itemName, amount, donor } = body;
-
-    // ✅ RELAXED validation: only require email if NOT anonymous
     if (
-      !itemName ||
-      !donor ||
-      typeof itemName !== 'string' ||
-      typeof donor.isAnonymous === 'undefined' ||  // ✅ must have this flag
-      (!donor.isAnonymous && !donor.email) ||      // ✅ require email only if NOT anonymous
-      (typeof amount !== 'number' && isNaN(Number(amount)))
+      !item?.title ||
+      !(item?.price > 0) ||
+      donor?.isAnonymous === undefined ||
+      !donor.email?.trim() // require email for all donors
     ) {
-      console.error('❌ Missing or invalid required fields:', { itemName, amount, donor });
       return NextResponse.json(
-        { error: 'Missing or invalid required fields.' },
+        { error: 'Missing or invalid fields.' },
         { status: 400 }
       );
     }
 
-    // ✅ Prepare metadata (ALWAYS include donation_cause)
-    const donorName = donor.isAnonymous ? 'Anonymous' : donor.name || 'N/A';
-    const donorEmail = donor.isAnonymous ? 'donation@anonymous.com' : donor.email;
-    const donorPhone = donor.phone || 'N/A';
+    /* 2️⃣ build metadata -------------------------------------------------- */
+    const donorName  = donor.isAnonymous ? 'Anonymous' : donor.name?.trim() || 'N/A';
+    const donorEmail = donor.email.trim();
+    const donorPhone = donor.phone?.trim() || '';
 
-    const metadata: Record<string, string> = {
+    // Format current date as DD/MM/YYYY
+    const now = new Date();
+    const donationDate = `${String(now.getDate()).padStart(2, '0')}/${
+      String(now.getMonth() + 1).padStart(2, '0')
+    }/${now.getFullYear()}`;
+
+    const metadata = {
       donor_name: donorName,
       donor_email: donorEmail,
       donor_phone: donorPhone,
-      donation_cause: itemName,
+      is_anonymous: donor.isAnonymous ? 'true' : 'false',
+      item_id: String(item.id),
+      item_title: item.title,
+      campaign: item.campaign,
+      amount_gbp: String(item.price),
+      donation_date: donationDate, // e.g. "20/05/2025"
     };
 
-    // ✅ Create Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
-      customer_email: donorEmail,  // ✅ always use the right email here
+    /* 3️⃣ create Checkout Session ---------------------------------------- */
+    const origin = req.headers.get('origin') ?? req.nextUrl.origin;
 
-      payment_intent_data: {
-        metadata,
-      },
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      customer_email: donorEmail,
+      payment_intent_data: { metadata },
 
       line_items: [
         {
           price_data: {
             currency: 'gbp',
-            product_data: { name: itemName },
-            unit_amount: Math.round(Number(amount) * 100),  // Convert to pence
+            product_data: { name: item.title },
+            unit_amount: Math.round(item.price * 100), // convert £ → pence
           },
           quantity: 1,
         },
       ],
-      mode: 'payment',
 
-      success_url: `${req.headers.get('origin')}/success?donor_name=${encodeURIComponent(
-        donorName
-      )}&donor_email=${encodeURIComponent(
-        donorEmail
-      )}&donor_phone=${encodeURIComponent(
-        donorPhone
-      )}&cause=${encodeURIComponent(itemName)}&amount=${encodeURIComponent(amount)}`,
-
-      cancel_url: `${req.headers.get('origin')}/cancel`,
+      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url:  `${origin}/cancel`,
     });
 
-    console.log('✅ Stripe session created:', session.id);
-
     return NextResponse.json({ url: session.url });
-  } catch (err: any) {
-    console.error('❌ Stripe session creation failed:', err.message || err);
+  } catch (err) {
+    console.error('Stripe error:', err);
     return NextResponse.json(
       { error: 'Stripe session creation failed.' },
       { status: 500 }

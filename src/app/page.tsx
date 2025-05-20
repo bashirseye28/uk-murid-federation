@@ -4,7 +4,7 @@ import Hero from '@/components/Home/Hero'
 import AboutPreview from '@/components/Home/AboutPreview'
 import GalleryPreview from '@/components/Home/GalleryPreview'
 import BambaDaySection from '@/components/Home/BambaDaySection'
-import DonatePreview from '@/components/Home/DonatePreview'
+// import DonatePreview from '@/components/Home/DonatePreview'
 
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
       <AboutPreview />
       <GalleryPreview />
       <BambaDaySection />
-      <DonatePreview />
+      {/* <DonatePreview /> */}
     </>
   )
 }
