@@ -7,7 +7,7 @@ const objectives = [
   {
     title: 'Collective Celebrations',
     description:
-      'Organise UK-wide events such as Bamba Day and Mame Cheikh Ibrahima Fall Day to strengthen communal bonds.',
+      'Organise UK-wide events such as Bamba Day and Mame Sheikh Ibrahima Fall Day to strengthen communal bonds.',
   },
   {
     title: 'Annual Ziarra',
@@ -27,7 +27,7 @@ const objectives = [
   {
     title: 'Cultural Preservation',
     description:
-      'Promote the literary and spiritual works of Cheikh Ahmadou Bamba through educational programmes and interfaith dialogue.',
+      'Promote the literary and spiritual works of Sheikh Ahmadou Bamba through educational programmes and interfaith dialogue.',
   },
 ];
 

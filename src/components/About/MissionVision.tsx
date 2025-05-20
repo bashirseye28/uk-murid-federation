@@ -34,7 +34,7 @@ export default function MissionVision() {
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
             To serve the Murid community by promoting unity, organising religious and cultural events,
             and providing social support. We strive to uphold the values of compassion, solidarity, and service,
-            while preserving the rich spiritual legacy of Cheikh Ahmadou Bamba.
+            while preserving the rich spiritual legacy of Sheikh Ahmadou Bamba.
           </p>
         </motion.div>
 
