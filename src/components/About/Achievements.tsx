@@ -13,7 +13,7 @@ const achievements = [
     icon: Users,
     title: 'Unified UK Dahiras',
     description:
-      'Successfully united Mouride Dahiras across the UK through events like Bamba Day and Mame Cheikh Ibrahima Fall Day.',
+      'Successfully united Murid Dahiras across the UK through events like Bamba Day and Mame Cheikh Ibrahima Fall Day.',
   },
   {
     icon: PiggyBank,
@@ -29,9 +29,9 @@ const achievements = [
   },
   {
     icon: Globe,
-    title: 'Global Mouride Relations',
+    title: 'Global Murid Relations',
     description:
-      'Built strong relationships with Mouride leaders and institutions across the world to support shared goals and unity.',
+      'Built strong relationships with Murid leaders and institutions across the world to support shared goals and unity.',
   },
 ];
 

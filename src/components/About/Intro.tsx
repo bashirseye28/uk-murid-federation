@@ -17,7 +17,7 @@ export default function Intro() {
         </h2>
 
         <p className="text-slate-700 text-base md:text-lg leading-relaxed mb-6">
-          A unified body representing the collective efforts of Mouride Dahiras across the United Kingdom. Our
+          A unified body representing the collective efforts of Murid Dahiras across the United Kingdom. Our
           federation is dedicated to fostering spiritual growth, community cohesion, and charitable initiatives
           in alignment with the teachings of Cheikh Ahmadou Bamba.
         </p>

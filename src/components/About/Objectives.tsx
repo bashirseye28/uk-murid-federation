@@ -22,7 +22,7 @@ const objectives = [
   {
     title: 'Khalif Projects',
     description:
-      'Mobilise resources to support initiatives led by the Khalif General of the Mourides, including the Touba University project.',
+      'Mobilise resources to support initiatives led by the Khalif General of the Murids, including the Touba University project.',
   },
   {
     title: 'Cultural Preservation',

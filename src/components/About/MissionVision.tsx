@@ -32,7 +32,7 @@ export default function MissionVision() {
             <h3 className="text-xl font-semibold text-mourid-green">Our Mission</h3>
           </div>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-            To serve the Mouride community by promoting unity, organising religious and cultural events,
+            To serve the Murid community by promoting unity, organising religious and cultural events,
             and providing social support. We strive to uphold the values of compassion, solidarity, and service,
             while preserving the rich spiritual legacy of Cheikh Ahmadou Bamba.
           </p>
@@ -51,7 +51,7 @@ export default function MissionVision() {
             <h3 className="text-xl font-semibold text-mourid-green">Our Vision</h3>
           </div>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-            A vibrant and united Mouride community in the UK, actively engaged in spiritual, educational,
+            A vibrant and united Murid community in the UK, actively engaged in spiritual, educational,
             and charitable activities that benefit both members and society at large.
           </p>
         </motion.div>
