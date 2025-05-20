@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Flag, Eye } from "lucide-react"; // Optional: nice icons
+import { Flag, Eye } from "lucide-react";
 
 export default function MissionVision() {
   return (
@@ -32,9 +32,9 @@ export default function MissionVision() {
             <h3 className="text-xl font-semibold text-mourid-green">Our Mission</h3>
           </div>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-            To uphold and spread the teachings of Sheikh Ahmadou Bamba, promote spiritual growth,
-            Islamic education, and foster unity, solidarity, and mutual support among Murid Dahiras
-            and the wider community across the United Kingdom.
+            To serve the Mouride community by promoting unity, organising religious and cultural events,
+            and providing social support. We strive to uphold the values of compassion, solidarity, and service,
+            while preserving the rich spiritual legacy of Cheikh Ahmadou Bamba.
           </p>
         </motion.div>
 
@@ -51,9 +51,8 @@ export default function MissionVision() {
             <h3 className="text-xl font-semibold text-mourid-green">Our Vision</h3>
           </div>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-            To build a strong, united, and impactful Murid community that contributes positively
-            to the spiritual, educational, and social development of the UK society while preserving
-            the rich cultural and religious heritage of the Muridiyya.
+            A vibrant and united Mouride community in the UK, actively engaged in spiritual, educational,
+            and charitable activities that benefit both members and society at large.
           </p>
         </motion.div>
       </div>
