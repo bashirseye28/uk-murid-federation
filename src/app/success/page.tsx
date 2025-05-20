@@ -7,17 +7,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-04-30.basil',
 });
 
-type SuccessProps = {
+export default async function Success({
+  searchParams,
+}: {
   searchParams: { session_id?: string };
-};
-
-export default async function Success({ searchParams }: SuccessProps) {
+}) {
   const sessionId = searchParams.session_id;
   if (!sessionId) {
     redirect('/donate');
   }
 
-  // Retrieve the session and expand payment_intent for metadata
   const session = await stripe.checkout.sessions.retrieve(sessionId as string, {
     expand: ['payment_intent'],
   });
@@ -25,7 +24,6 @@ export default async function Success({ searchParams }: SuccessProps) {
   const pi = session.payment_intent as Stripe.PaymentIntent;
   const meta = pi.metadata;
 
-  // Extract values, falling back as needed
   const donorName  = meta.donor_name  || 'Anonymous';
   const donorEmail = session.customer_details?.email || meta.donor_email || '';
   const donorPhone = meta.donor_phone  || 'N/A';
