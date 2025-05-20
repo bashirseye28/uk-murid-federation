@@ -60,7 +60,7 @@ export default function AchievementsSection() {
             <div className="flex justify-center mb-5">
               <item.icon className="text-mourid-green w-10 h-10" />
             </div>
-            <h3 className="text-xl font-semibold text-slate-800 text-center whitespace-nowrap overflow-hidden text-ellipsis">
+            <h3 className="text-xl font-semibold text-mourid-green text-center whitespace-nowrap overflow-hidden text-ellipsis">
               {item.title}
             </h3>
             <p className="text-base text-slate-600 mt-3 text-center leading-relaxed">
