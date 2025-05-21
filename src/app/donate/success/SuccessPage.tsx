@@ -1,8 +1,9 @@
 // app/donate/success/SuccessPage.tsx
-"use client";
+'use client';
 
-import Image from "next/image";
-import jsPDF from "jspdf";
+import React, { useCallback } from 'react';
+import Image from 'next/image';
+import jsPDF from 'jspdf';
 
 interface SuccessPageProps {
   donorName: string;
@@ -21,11 +22,13 @@ export default function SuccessPage({
   amount,
   date,
 }: SuccessPageProps) {
-  const handleDownload = async () => {
+  const handleDownload = useCallback(async () => {
     const doc = new jsPDF();
     const logoUrl =
-      "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png";
-    const logoImg = await fetch(logoUrl)
+      'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
+
+    // Load logo as Base64
+    const logoBase64 = await fetch(logoUrl)
       .then((res) => res.blob())
       .then(
         (blob) =>
@@ -36,25 +39,24 @@ export default function SuccessPage({
           })
       );
 
-    // Logo
-    doc.addImage(logoImg, "PNG", 85, 10, 40, 40);
+    // Draw logo
+    doc.addImage(logoBase64, 'PNG', 85, 10, 40, 40);
+
     let y = 60;
+    doc.setFontSize(20).setFont('helvetica', 'bold');
+    doc.text('Donation Receipt', 105, y, { align: 'center' });
 
-    // Title
-    doc.setFontSize(20).setFont("helvetica", "bold");
-    doc.text("Donation Receipt", 105, y, { align: "center" });
-
-    // Org Details
+    // Organization details
     y += 15;
-    doc.setFontSize(18).setFont("helvetica", "bold");
-    doc.text("UK Murid Federation", 20, y);
+    doc.setFontSize(18).setFont('helvetica', 'bold');
+    doc.text('UK Murid Federation', 20, y);
     y += 9;
-    doc.setFontSize(12).setFont("helvetica", "normal");
-    doc.text("Company Number: 13535445", 20, y);
+    doc.setFontSize(12).setFont('helvetica', 'normal');
+    doc.text('Company Number: 13535445', 20, y);
     y += 7;
-    doc.text("Email: mouride.uk@gmail.com", 20, y);
+    doc.text('Email: mouride.uk@gmail.com', 20, y);
     y += 7;
-    doc.text("Website: https://ukmouride.co.uk", 20, y);
+    doc.text('Website: https://ukmouride.co.uk', 20, y);
 
     // Divider
     y += 10;
@@ -63,9 +65,9 @@ export default function SuccessPage({
 
     // Donor Information
     y += 15;
-    doc.setFont("helvetica", "bold").text("Donor Information:", 20, y);
+    doc.setFont('helvetica', 'bold').text('Donor Information:', 20, y);
     y += 8;
-    doc.setFont("helvetica", "normal");
+    doc.setFont('helvetica', 'normal');
     doc.text(`Donor Name: ${donorName}`, 20, y);
     y += 7;
     doc.text(`Email: ${donorEmail}`, 20, y);
@@ -74,9 +76,9 @@ export default function SuccessPage({
 
     // Donation Details
     y += 10;
-    doc.setFont("helvetica", "bold").text("Donation Details:", 20, y);
+    doc.setFont('helvetica', 'bold').text('Donation Details:', 20, y);
     y += 8;
-    doc.setFont("helvetica", "normal");
+    doc.setFont('helvetica', 'normal');
     doc.text(`Reference: ${cause}`, 20, y);
     y += 7;
     doc.text(`Amount: £${amount}`, 20, y);
@@ -90,26 +92,27 @@ export default function SuccessPage({
 
     // Thank-you message
     y += 12;
-    doc.setFontSize(11).setFont("times", "italic");
+    doc.setFontSize(11).setFont('times', 'italic');
     doc.text(
-      "May Allah reward you abundantly for your generosity.",
+      'May Allah reward you abundantly for your generosity.',
       105,
       y,
-      { align: "center" }
+      { align: 'center' }
     );
 
     // Footer note
     y += 15;
-    doc.setFontSize(9).setFont("helvetica", "normal");
+    doc.setFontSize(9).setFont('helvetica', 'normal');
     doc.text(
-      "This document serves as an official receipt for your donation. Thank you for supporting UK Murid Federation.",
+      'This document serves as an official receipt for your donation. Thank you for supporting UK Murid Federation.',
       105,
       y,
-      { align: "center" }
+      { align: 'center' }
     );
 
-    doc.save("donation-receipt.pdf");
-  };
+    // Trigger download
+    doc.save('donation-receipt.pdf');
+  }, [donorName, donorEmail, donorPhone, cause, amount, date]);
 
   return (
     <section className="py-16 px-6 bg-white min-h-screen flex flex-col items-center justify-center text-center">
@@ -169,10 +172,10 @@ export default function SuccessPage({
             Download Receipt
           </button>
           <a
-            href="/"
+            href="/donate"
             className="inline-block bg-slate-100 border px-6 py-2 rounded-md text-sm font-semibold hover:bg-slate-200 transition"
           >
-            Return Home
+            Return to Donate
           </a>
         </div>
       </div>
