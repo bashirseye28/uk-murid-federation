@@ -6,12 +6,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-04-30.basil',
 });
 
-// ✅ DO NOT NAME THIS TYPE — just inline it
-export default async function Success({
-  searchParams,
-}: {
-  searchParams?: { session_id?: string | string[] };
-}) {
+// ✅ Vercel-safe fix — no PageProps usage at all
+export default async function Success({ searchParams }: any) {
   const rawSessionId = searchParams?.session_id;
   const sessionId =
     typeof rawSessionId === 'string'
