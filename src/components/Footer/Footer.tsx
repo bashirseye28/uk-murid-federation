@@ -65,11 +65,6 @@ export default function Footer() {
                 Contact
               </Link>
             </li>
-            <li>
-              <Link href="/privacy" className="hover:underline focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
-                Privacy Policy
-              </Link>
-            </li>
           </ul>
         </div>
 
