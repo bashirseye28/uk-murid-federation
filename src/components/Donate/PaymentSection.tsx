@@ -67,15 +67,15 @@ export default function PaymentSection({
           isRegistration ? (
             <RegistrationForm
               price={selectedItem.price}
-              onSubmit={(info) =>
-                setDonorInfo({ ...info, isAnonymous: false } as RegistrationInfo & { isAnonymous: false })
+              onSubmit={(info: RegistrationInfo) =>
+                setDonorInfo({ ...info, isAnonymous: false })
               }
               onBack={onBack}
             />
           ) : (
             <DonationForm
               amount={selectedItem.price}
-              onSubmit={(info) => setDonorInfo(info)}
+              onSubmit={(info: DonorInfo) => setDonorInfo(info)}
               onBack={onBack}
             />
           )
@@ -98,7 +98,7 @@ export default function PaymentSection({
                 onClick={handleStripeCheckout}
                 className="inline-block w-full rounded-md bg-mourid-green px-6 py-3 text-sm font-semibold text-white transition hover:bg-mourid-blue disabled:opacity-50"
               >
-                {loading ? "Redirecting…" : `Donate £${selectedItem.price.toLocaleString()} via Stripe`}
+                {loading ? "Redirecting…" : `Donate £${selectedItem.price.toLocaleString()} Now`}
               </button>
             </div>
 

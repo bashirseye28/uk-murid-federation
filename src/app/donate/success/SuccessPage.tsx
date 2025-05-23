@@ -1,9 +1,9 @@
-// app/donate/success/SuccessPage.tsx
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import jsPDF from 'jspdf';
+import { sendRegistrationEmail } from '@/lib/sendRegistrationEmail';
 
 interface SuccessPageProps {
   donorName: string;
@@ -24,10 +24,8 @@ export default function SuccessPage({
 }: SuccessPageProps) {
   const handleDownload = useCallback(async () => {
     const doc = new jsPDF();
-    const logoUrl =
-      'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
+    const logoUrl = 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
 
-    // Load logo as Base64
     const logoBase64 = await fetch(logoUrl)
       .then((res) => res.blob())
       .then(
@@ -39,14 +37,12 @@ export default function SuccessPage({
           })
       );
 
-    // Draw logo
     doc.addImage(logoBase64, 'PNG', 85, 10, 40, 40);
 
     let y = 60;
     doc.setFontSize(20).setFont('helvetica', 'bold');
     doc.text('Donation Receipt', 105, y, { align: 'center' });
 
-    // Organization details
     y += 15;
     doc.setFontSize(18).setFont('helvetica', 'bold');
     doc.text('UK Murid Federation', 20, y);
@@ -58,12 +54,10 @@ export default function SuccessPage({
     y += 7;
     doc.text('Website: https://ukmouride.co.uk', 20, y);
 
-    // Divider
     y += 10;
     doc.setLineWidth(0.5);
     doc.line(20, y, 190, y);
 
-    // Donor Information
     y += 15;
     doc.setFont('helvetica', 'bold').text('Donor Information:', 20, y);
     y += 8;
@@ -74,7 +68,6 @@ export default function SuccessPage({
     y += 7;
     doc.text(`Phone: ${donorPhone}`, 20, y);
 
-    // Donation Details
     y += 10;
     doc.setFont('helvetica', 'bold').text('Donation Details:', 20, y);
     y += 8;
@@ -85,12 +78,10 @@ export default function SuccessPage({
     y += 7;
     doc.text(`Date: ${date}`, 20, y);
 
-    // Divider
     y += 15;
     doc.setLineWidth(0.3);
     doc.line(20, y, 190, y);
 
-    // Thank-you message
     y += 12;
     doc.setFontSize(11).setFont('times', 'italic');
     doc.text(
@@ -100,7 +91,6 @@ export default function SuccessPage({
       { align: 'center' }
     );
 
-    // Footer note
     y += 15;
     doc.setFontSize(9).setFont('helvetica', 'normal');
     doc.text(
@@ -110,9 +100,27 @@ export default function SuccessPage({
       { align: 'center' }
     );
 
-    // Trigger download
     doc.save('donation-receipt.pdf');
   }, [donorName, donorEmail, donorPhone, cause, amount, date]);
+
+  useEffect(() => {
+    const sendEmail = async () => {
+      try {
+        await sendRegistrationEmail({
+          name: donorName,
+          email: donorEmail,
+          phone: donorPhone,
+          dahiraCity: cause,
+          childrenUnder16: 0,
+        });
+        console.log('✅ Registration email sent.');
+      } catch (error) {
+        console.error('❌ Failed to send registration email:', error);
+      }
+    };
+
+    if (donorEmail) sendEmail();
+  }, [donorName, donorEmail, donorPhone, cause]);
 
   return (
     <section className="py-16 px-6 bg-white min-h-screen flex flex-col items-center justify-center text-center">
