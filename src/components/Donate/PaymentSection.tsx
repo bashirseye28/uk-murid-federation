@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import { ClipboardCheck, CreditCard, Landmark } from "lucide-react";
 import DonationForm, { DonorInfo } from "./DonationForm";
 import RegistrationForm, { RegistrationInfo } from "./RegistrationForm";
+import { sendRegistrationEmail } from '@/lib/sendRegistrationEmail';
 import type { DonationItem } from "./DonationGrid";
 
 interface PaymentSectionProps {
@@ -67,10 +68,16 @@ export default function PaymentSection({
           isRegistration ? (
             <RegistrationForm
               price={selectedItem.price}
-              onSubmit={(info: RegistrationInfo) =>
-                setDonorInfo({ ...info, isAnonymous: false })
-              }
               onBack={onBack}
+              onSubmit={async (info: RegistrationInfo) => {
+                try {
+                  await sendRegistrationEmail(info);
+                  setDonorInfo({ ...info, isAnonymous: false });
+                } catch (error) {
+                  console.error("Error sending email:", error);
+                  alert("Failed to send registration email. Please try again.");
+                }
+              }}
             />
           ) : (
             <DonationForm

@@ -31,9 +31,17 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
     mode: 'onChange',
   });
 
+  const handleFormSubmit = async (data: RegistrationInfo) => {
+    await sendRegistrationEmail({
+      ...data,
+      childrenUnder16: Number(data.childrenUnder16),
+    });
+    onSubmit(data);
+  };
+
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleFormSubmit)}
       noValidate
       className="mx-auto w-full max-w-md space-y-6 rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-100"
     >
@@ -47,9 +55,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
 
       {/* Full Name */}
       <div>
+        <label htmlFor="name" className="sr-only">Full Name</label>
         <div className="relative">
           <User className="absolute left-3 top-3.5 h-4 w-4 text-gray-400 pointer-events-none" />
           <input
+            id="name"
             type="text"
             placeholder="Enter your full name"
             aria-label="Full name"
@@ -62,9 +72,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
 
       {/* Email */}
       <div>
+        <label htmlFor="email" className="sr-only">Email</label>
         <div className="relative">
           <Mail className="absolute left-3 top-3.5 h-4 w-4 text-gray-400 pointer-events-none" />
           <input
+            id="email"
             type="email"
             placeholder="Enter your email address"
             aria-label="Email address"
@@ -83,9 +95,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
 
       {/* Phone */}
       <div>
+        <label htmlFor="phone" className="sr-only">Phone</label>
         <div className="relative">
           <Smartphone className="absolute left-3 top-3.5 h-4 w-4 text-gray-400 pointer-events-none" />
           <input
+            id="phone"
             type="tel"
             placeholder="Enter your mobile number"
             aria-label="Phone number"
@@ -98,9 +112,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
 
       {/* Dahira or City */}
       <div>
+        <label htmlFor="dahiraCity" className="sr-only">Dahira / City</label>
         <div className="relative">
           <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-gray-400 pointer-events-none" />
           <input
+            id="dahiraCity"
             type="text"
             placeholder="Which Dahira or city are you coming from?"
             aria-label="Dahira or City"
@@ -108,16 +124,16 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
             className={`${baseInput} ${errors.dahiraCity ? 'border-red-500' : ''}`}
           />
         </div>
-        {errors.dahiraCity && (
-          <p className="mt-1 text-xs text-red-600">{errors.dahiraCity.message}</p>
-        )}
+        {errors.dahiraCity && <p className="mt-1 text-xs text-red-600">{errors.dahiraCity.message}</p>}
       </div>
 
       {/* Children under 16 */}
       <div>
+        <label htmlFor="childrenUnder16" className="sr-only">Children Under 16</label>
         <div className="relative">
           <Users className="absolute left-3 top-3.5 h-4 w-4 text-gray-400 pointer-events-none" />
           <input
+            id="childrenUnder16"
             type="number"
             min={0}
             placeholder="How many children under 16 will be with you?"
@@ -125,13 +141,12 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
             {...register('childrenUnder16', {
               required: 'Please indicate number of children.',
               min: { value: 0, message: 'Value cannot be negative.' },
+              valueAsNumber: true,
             })}
             className={`${baseInput} ${errors.childrenUnder16 ? 'border-red-500' : ''}`}
           />
         </div>
-        {errors.childrenUnder16 && (
-          <p className="mt-1 text-xs text-red-600">{errors.childrenUnder16.message}</p>
-        )}
+        {errors.childrenUnder16 && <p className="mt-1 text-xs text-red-600">{errors.childrenUnder16.message}</p>}
       </div>
 
       {/* Submit & Back */}
