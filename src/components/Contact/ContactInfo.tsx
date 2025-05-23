@@ -18,16 +18,16 @@ export default function ContactInfo() {
 
           <div className="flex items-center justify-center gap-3">
             <Phone size={20} className="text-mourid-green" />
-            <span>+44 7888 356439</span>
+            <span>++44 7472 010308</span>
           </div>
-
+{/* 
           <div className="flex items-center justify-center gap-3 text-center max-w-xs mx-auto">
             <MapPin size={20} className="text-mourid-green" />
             <span>
               3 Hesketh Walk, Farnworth,<br />
               Bolton, England, BL4 9EY
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
