@@ -1,7 +1,7 @@
 import ContactHero from '@/components/Contact/ContactHero'
 import ContactInfo from '@/components/Contact/ContactInfo'
 import ContactForm from '@/components/Contact/ContactForm'
-import ContactMap from '@/components/Contact/ContactMap'
+import ContactCTA from '@/components/About/ContactCTA'
 
 
 export default function Page() {
@@ -10,7 +10,7 @@ export default function Page() {
       <ContactHero />
       <ContactInfo />
       <ContactForm />
-      <ContactMap />
+      <ContactCTA />
     </div>
   )
 }

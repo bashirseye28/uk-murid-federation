@@ -85,7 +85,7 @@ export default function Footer() {
           <p className="text-sm mb-4 flex items-center gap-2">
             <Phone size={16} aria-hidden="true" />
             <a href="tel:+447888356439" className="underline hover:text-mourid-green focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
-              +44 7888 356439
+              +44 7472 010308
             </a>
           </p>
 
