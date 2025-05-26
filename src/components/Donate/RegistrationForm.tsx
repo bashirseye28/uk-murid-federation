@@ -3,7 +3,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { User, Mail, Smartphone, MapPin, Users, ArrowLeft } from 'lucide-react';
-import { sendRegistrationEmail } from '@/lib/sendRegistrationEmail';
 
 export interface RegistrationInfo {
   name: string;
@@ -31,17 +30,9 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
     mode: 'onChange',
   });
 
-  const handleFormSubmit = async (data: RegistrationInfo) => {
-    await sendRegistrationEmail({
-      ...data,
-      childrenUnder16: Number(data.childrenUnder16),
-    });
-    onSubmit(data);
-  };
-
   return (
     <form
-      onSubmit={handleSubmit(handleFormSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       noValidate
       className="mx-auto w-full max-w-md space-y-6 rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-100"
     >
@@ -62,7 +53,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
             id="name"
             type="text"
             placeholder="Enter your full name"
-            aria-label="Full name"
             {...register('name', { required: 'Name is required.' })}
             className={`${baseInput} ${errors.name ? 'border-red-500' : ''}`}
           />
@@ -79,7 +69,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
             id="email"
             type="email"
             placeholder="Enter your email address"
-            aria-label="Email address"
             {...register('email', {
               required: 'Email is required.',
               pattern: {
@@ -102,7 +91,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
             id="phone"
             type="tel"
             placeholder="Enter your mobile number"
-            aria-label="Phone number"
             {...register('phone', { required: 'Phone number is required.' })}
             className={`${baseInput} ${errors.phone ? 'border-red-500' : ''}`}
           />
@@ -119,7 +107,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
             id="dahiraCity"
             type="text"
             placeholder="Which Dahira or city are you coming from?"
-            aria-label="Dahira or City"
             {...register('dahiraCity', { required: 'This field is required.' })}
             className={`${baseInput} ${errors.dahiraCity ? 'border-red-500' : ''}`}
           />
@@ -136,13 +123,12 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
             id="childrenUnder16"
             type="number"
             min={0}
-            placeholder="How many children under 16 will be with you?"
-            aria-label="Children under 16 attending"
             {...register('childrenUnder16', {
               required: 'Please indicate number of children.',
               min: { value: 0, message: 'Value cannot be negative.' },
               valueAsNumber: true,
             })}
+            placeholder="How many children under 16 will be with you?"
             className={`${baseInput} ${errors.childrenUnder16 ? 'border-red-500' : ''}`}
           />
         </div>

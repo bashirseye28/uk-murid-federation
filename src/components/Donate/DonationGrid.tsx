@@ -23,11 +23,7 @@ interface DonationGridProps {
   onDonate?: (item: DonationItem) => void;
 }
 
-/**
- * DonationGrid – lists the active campaign’s donation items in a responsive grid.
- * If an onDonate handler is provided, clicking a card routes through client logic;
- * otherwise it falls back to a simple anchor link (useful for SSR or static pages).
- */
+
 const DonationGrid: React.FC<DonationGridProps> = ({ onDonate }) => {
   const [campaign, setCampaign] = useState<DonationCampaign | null>(null);
 
@@ -77,7 +73,7 @@ const DonationGrid: React.FC<DonationGridProps> = ({ onDonate }) => {
             <h3 className="mb-1 text-lg font-bold text-mourid-green">
               {item.title}
             </h3>
-            <p className="mb-2 text-sm font-semibold text-mourid-accent">
+            <p className="mb-2 text-sm font-semibold text-mourid-green">
               £{item.price.toLocaleString()}
             </p>
             {item.description && (

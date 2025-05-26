@@ -26,16 +26,16 @@ export const donationCampaigns: DonationCampaign[] = [
     items: [
       {
         id: 1,
-        title: '1 Sheep (Xar)',
+        title: '1 Lamb (Xar)',
         description: 'Help provide a sheep for communal meals during Bamba Day.',
         image: 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746762980/closeup-shot-argali-blurred-background_181624-34583_ytzkhn.jpg',
-        price: 150,
+        price: 200,
       },
       {
         id: 2,
-        title: 'Carte Barkeelu – £30',
+        title: 'Carte Barkeelu',
         description: 'Register your attendance and support Bamba Day.',
-        image: 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1747718678/barkeeluCard_ualbtg.png',
+        image: 'https://res.cloudinary.com/drulwmdhg/image/upload/v1748300816/WhatsApp_Image_2025-05-21_at_10.35.45_1_d6oqzm.jpg',
         price: 30,
         formType: 'registration',              //  ➜ triggers the special form
       },
@@ -64,8 +64,8 @@ export const donationCampaigns: DonationCampaign[] = [
         id: 6,
         title: 'Cooking Oil',
         description: 'Support food preparation with cooking oil.',
-        image: 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746762570/png-oil-jars-bottles-seeds-sunflowers-isolated-white-background_185193-164227_td33y8.jpg',
-        price: 18,
+        image: 'https://res.cloudinary.com/drulwmdhg/image/upload/v1748301113/79476815724574_dkifre.webp',
+        price: 50,
       },
     ],
   },

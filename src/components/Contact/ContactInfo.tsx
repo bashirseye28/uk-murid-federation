@@ -18,7 +18,7 @@ export default function ContactInfo() {
 
           <div className="flex items-center justify-center gap-3">
             <Phone size={20} className="text-mourid-green" />
-            <span>++44 7472 010308</span>
+            <span>+44 7472 010308</span>
           </div>
 {/* 
           <div className="flex items-center justify-center gap-3 text-center max-w-xs mx-auto">

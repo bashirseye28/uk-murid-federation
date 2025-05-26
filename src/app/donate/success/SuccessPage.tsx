@@ -9,10 +9,10 @@ interface SuccessPageProps {
   donorName: string;
   donorEmail: string;
   donorPhone: string;
-  cause: string; // Reference or campaign
+  cause: string;
   amount: string;
   date: string;
-  childrenUnder16?: number;
+  childrenUnder16?: number; // ✅ Optional number passed from payment flow
 }
 
 export default function SuccessPage({
@@ -24,7 +24,7 @@ export default function SuccessPage({
   date,
   childrenUnder16,
 }: SuccessPageProps) {
-  const hasSentEmail = useRef(false);
+  const hasSentEmail = useRef(false); // ✅ Prevent multiple sends
 
   const handleDownload = useCallback(async () => {
     const doc = new jsPDF();
@@ -32,12 +32,13 @@ export default function SuccessPage({
 
     const logoBase64 = await fetch(logoUrl)
       .then((res) => res.blob())
-      .then((blob) =>
-        new Promise<string>((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result as string);
-          reader.readAsDataURL(blob);
-        })
+      .then(
+        (blob) =>
+          new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.readAsDataURL(blob);
+          })
       );
 
     doc.addImage(logoBase64, 'PNG', 85, 10, 40, 40);
@@ -47,9 +48,11 @@ export default function SuccessPage({
     doc.text('Donation Receipt', 105, y, { align: 'center' });
 
     y += 15;
-    doc.setFontSize(18).text('UK Murid Federation', 20, y);
+    doc.setFontSize(18).setFont('helvetica', 'bold');
+    doc.text('UK Murid Federation', 20, y);
     y += 9;
-    doc.setFontSize(12).text('Company Number: 13535445', 20, y);
+    doc.setFontSize(12).setFont('helvetica', 'normal');
+    doc.text('Company Number: 13535445', 20, y);
     y += 7;
     doc.text('Email: mouride.uk@gmail.com', 20, y);
     y += 7;
@@ -79,7 +82,7 @@ export default function SuccessPage({
     y += 7;
     doc.text(`Date: ${date}`, 20, y);
 
-    if (childrenUnder16 !== undefined) {
+    if (typeof childrenUnder16 === 'number') {
       y += 10;
       doc.setFont('helvetica', 'bold').text('Children Attending:', 20, y);
       y += 7;
@@ -93,7 +96,9 @@ export default function SuccessPage({
 
     y += 12;
     doc.setFontSize(11).setFont('times', 'italic');
-    doc.text('May Allah reward you abundantly for your generosity.', 105, y, { align: 'center' });
+    doc.text('May Allah reward you abundantly for your generosity.', 105, y, {
+      align: 'center',
+    });
 
     y += 15;
     doc.setFontSize(9).setFont('helvetica', 'normal');
@@ -107,10 +112,10 @@ export default function SuccessPage({
     doc.save('donation-receipt.pdf');
   }, [donorName, donorEmail, donorPhone, cause, amount, date, childrenUnder16]);
 
-  // ✅ Only send email ONCE
   useEffect(() => {
-    if (hasSentEmail.current || !donorEmail) return;
-    hasSentEmail.current = true;
+    if (!donorEmail || hasSentEmail.current) return;
+
+    hasSentEmail.current = true; // ✅ Ensure it only sends once after Stripe success
 
     const sendEmail = async () => {
       try {
@@ -121,7 +126,7 @@ export default function SuccessPage({
           dahiraCity: cause,
           childrenUnder16: childrenUnder16 ?? 0,
         });
-        console.log('✅ Registration email sent.');
+        console.log('✅ Registration email sent after Stripe success');
       } catch (error) {
         console.error('❌ Failed to send registration email:', error);
       }
@@ -166,7 +171,7 @@ export default function SuccessPage({
           <p><span className="font-semibold">Reference:</span> {cause}</p>
           <p><span className="font-semibold">Amount:</span> £{amount}</p>
           <p><span className="font-semibold">Date:</span> {date}</p>
-          {childrenUnder16 !== undefined && (
+          {typeof childrenUnder16 === 'number' && (
             <p><span className="font-semibold">Children Under 16:</span> {childrenUnder16}</p>
           )}
         </div>

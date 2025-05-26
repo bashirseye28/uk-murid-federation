@@ -7,6 +7,8 @@ import DonationGrid, { DonationItem } from "@/components/Donate/DonationGrid";
 import PaymentSection from "@/components/Donate/PaymentSection";
 import { donationCampaigns, DonationCampaign } from "@/data/donationCampaigns";
 import { findCampaignById } from "@/lib/donations";
+import JaayanteCard from "@/components/Donate/JaayanteCard";
+import CustomAmountSection from "@/components/Donate/CustomAmountSection";
 
 const DonatePage = () => {
   /** The item the user clicked, or null when browsing */
@@ -46,8 +48,29 @@ const DonatePage = () => {
       <DonateHero campaignName={campaign.name} />
       <WhyDonateSection />
 
-      {/* Grid visible until a cause is selected */}
-      {selectedItem === null && <DonationGrid onDonate={handleDonate} />}
+      {/* JaayanteCard visible only during Bamba Day and when no selection is made */}
+      {selectedItem === null && campaign.id === "bambaDay" && (
+        <JaayanteCard
+          onSelect={(amount) =>
+            handleDonate({
+              id: 999,
+              title: "Jaayante Contribution",
+              description: "Special support for logistics, accommodation, and food",
+              image: "",
+              price: amount,
+              formType: "donation",
+            })
+          }
+        />
+      )}
+
+      {/* Grid and Custom amount visible until a cause is selected */}
+      {selectedItem === null && (
+        <>
+          <DonationGrid onDonate={handleDonate} />
+          <CustomAmountSection onDonate={handleDonate} />
+        </>
+      )}
 
       {/* Payment / registration flow */}
       {selectedItem !== null && (

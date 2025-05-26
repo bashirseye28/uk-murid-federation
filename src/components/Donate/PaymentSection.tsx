@@ -4,7 +4,6 @@ import { useState } from "react";
 import { ClipboardCheck, CreditCard, Landmark } from "lucide-react";
 import DonationForm, { DonorInfo } from "./DonationForm";
 import RegistrationForm, { RegistrationInfo } from "./RegistrationForm";
-import { sendRegistrationEmail } from '@/lib/sendRegistrationEmail';
 import type { DonationItem } from "./DonationGrid";
 
 interface PaymentSectionProps {
@@ -35,6 +34,7 @@ export default function PaymentSection({
       alert("Please complete the form first.");
       return;
     }
+
     try {
       setLoading(true);
       const res = await fetch("/api/checkout", {
@@ -43,8 +43,12 @@ export default function PaymentSection({
         body: JSON.stringify({ item: selectedItem, donor: donorInfo }),
       });
       const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else alert("Failed to initiate payment.");
+
+      if (data.url) {
+        window.location.href = data.url; // ✅ Stripe redirect
+      } else {
+        alert("Failed to initiate payment.");
+      }
     } catch (err) {
       console.error(err);
       alert("An error occurred. Please try again later.");
@@ -69,15 +73,9 @@ export default function PaymentSection({
             <RegistrationForm
               price={selectedItem.price}
               onBack={onBack}
-              onSubmit={async (info: RegistrationInfo) => {
-                try {
-                  await sendRegistrationEmail(info);
-                  setDonorInfo({ ...info, isAnonymous: false });
-                } catch (error) {
-                  console.error("Error sending email:", error);
-                  alert("Failed to send registration email. Please try again.");
-                }
-              }}
+              onSubmit={(info: RegistrationInfo) =>
+                setDonorInfo({ ...info, isAnonymous: false }) // ✅ Store info, no email yet
+              }
             />
           ) : (
             <DonationForm
@@ -92,10 +90,12 @@ export default function PaymentSection({
         {donorInfo !== null && (
           <>
             <div className="mb-6 rounded-lg border border-green-200 bg-green-50 p-4 text-left text-sm text-green-700">
-              Thank you, <span className="font-semibold">{"name" in donorInfo && donorInfo.name ? donorInfo.name : "Anonymous Donor"}</span>. You can now complete your donation.
+              Thank you, <span className="font-semibold">
+                {"name" in donorInfo && donorInfo.name ? donorInfo.name : "Anonymous Donor"}
+              </span>. You can now complete your donation.
             </div>
 
-            {/* Stripe */}
+            {/* Stripe Payment */}
             <div className="mb-10 rounded-lg border bg-white p-6 shadow">
               <h3 className="mb-4 flex items-center justify-center gap-2 text-lg font-semibold text-mourid-green">
                 <CreditCard size={20} /> Pay Securely by Card
@@ -109,7 +109,7 @@ export default function PaymentSection({
               </button>
             </div>
 
-            {/* Bank Transfer */}
+            {/* Bank Transfer Info */}
             <div className="rounded-lg border bg-white p-6 shadow">
               <h3 className="mb-4 flex items-center justify-center gap-2 text-lg font-semibold text-mourid-green">
                 <Landmark size={20} /> Bank Transfer Details

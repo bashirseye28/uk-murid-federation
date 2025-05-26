@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import SoxnaDiarraCard from "./SoxnaDiarraCard";
 
 type Member = {
   name: string;
   title: string;
-  image: string; // supports local or remote
+  image: string;
   responsibilities: string[];
 };
 
@@ -19,8 +20,8 @@ const members: Member[] = [
       "Provide leadership and direction to the organisation.",
       "Preside over meetings and represent the organisation externally.",
       "Ensure effective and efficient operation of the organisation.",
-      "Oversee appointments for key roles.",
-    ],
+      "Oversee appointments for key roles."
+    ]
   },
   {
     name: "S Khassim Dieng",
@@ -30,8 +31,8 @@ const members: Member[] = [
       "Manage administrative functions and maintain records.",
       "Support leaders and ensure proper documentation.",
       "Coordinate internal communication and training.",
-      "Map and enforce business processes.",
-    ],
+      "Map and enforce business processes."
+    ]
   },
   {
     name: "S Pape Mor Niang",
@@ -39,8 +40,8 @@ const members: Member[] = [
     image: "/profile.jpg",
     responsibilities: [
       "Manage external relations with authorities and institutions.",
-      "Lead protocol duties during events.",
-    ],
+      "Lead protocol duties during events."
+    ]
   },
   {
     name: "S Mamadou Mbengue",
@@ -48,8 +49,8 @@ const members: Member[] = [
     image: "/profile.jpg",
     responsibilities: [
       "Manage budgeting, financial reporting, and compliance.",
-      "Provide financial analysis to support decision-making.",
-    ],
+      "Provide financial analysis to support decision-making."
+    ]
   },
   {
     name: "S Abdou Salam Samb",
@@ -58,8 +59,8 @@ const members: Member[] = [
     responsibilities: [
       "Support with local finance duties and reporting.",
       "Ensure compliance with financial regulations.",
-      "Assist in budgeting and financial planning.",
-    ],
+      "Assist in budgeting and financial planning."
+    ]
   },
   {
     name: "S Modou Diene Sarr",
@@ -68,8 +69,8 @@ const members: Member[] = [
     responsibilities: [
       "Review and assess financial records and practices.",
       "Conduct audits and ensure compliance with financial regulations.",
-      "Identify improvement areas and recommend actions for better financial management.",
-    ],
+      "Identify improvement areas and recommend actions for better financial management."
+    ]
   },
   {
     name: "S Moustapha Diagne",
@@ -78,8 +79,8 @@ const members: Member[] = [
     responsibilities: [
       "Review and assess financial records and practices.",
       "Conduct audits and ensure compliance with financial regulations.",
-      "Identify improvement areas and recommend actions for better financial management.",
-    ],
+      "Identify improvement areas and recommend actions for better financial management."
+    ]
   },
   {
     name: "S Fallou Diop",
@@ -88,8 +89,8 @@ const members: Member[] = [
     responsibilities: [
       "Represent the organisation in public events and forums.",
       "Deliver speeches and promote the mission and activities.",
-      "Engage with stakeholders to build support and relationships.",
-    ],
+      "Engage with stakeholders to build support and relationships."
+    ]
   },
   {
     name: "S Muhammad Bao",
@@ -98,8 +99,8 @@ const members: Member[] = [
     responsibilities: [
       "Represent the organisation in public events and forums.",
       "Deliver speeches and promote the mission and activities.",
-      "Engage with stakeholders to build support and relationships.",
-    ],
+      "Engage with stakeholders to build support and relationships."
+    ]
   },
   {
     name: "S Fallou Gueye",
@@ -108,8 +109,8 @@ const members: Member[] = [
     responsibilities: [
       "Lead repatriation cases and coordinate with consulates.",
       "Guide family and oversee Islamic compliance.",
-      "Document and manage communications.",
-    ],
+      "Document and manage communications."
+    ]
   },
   {
     name: "S Talla Gueye",
@@ -117,8 +118,8 @@ const members: Member[] = [
     image: "/profile.jpg",
     responsibilities: [
       "Plan campaigns and identify donor strategies.",
-      "Build and maintain relationships with sponsors.",
-    ],
+      "Build and maintain relationships with sponsors."
+    ]
   },
   {
     name: "S Mame Thierno Diaw",
@@ -126,8 +127,8 @@ const members: Member[] = [
     image: "/profile.jpg",
     responsibilities: [
       "Coordinate events and fundraising logistics.",
-      "Ensure ethical fundraising practices.",
-    ],
+      "Ensure ethical fundraising practices."
+    ]
   },
   {
     name: "S Moustapha Gueye",
@@ -135,9 +136,9 @@ const members: Member[] = [
     image: "/profile.jpg",
     responsibilities: [
       "Organise Annual Ziarra and religious education.",
-      "Ensure alignment with Islamic values.",
-    ],
-  },
+      "Ensure alignment with Islamic values."
+    ]
+  }
 ];
 
 export default function OrganisationalStructure() {
@@ -154,6 +155,8 @@ export default function OrganisationalStructure() {
           and dedication.
         </p>
       </div>
+
+      
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {members.map((member, index) => {
@@ -194,7 +197,6 @@ export default function OrganisationalStructure() {
               </button>
 
               {expanded === member.name && (
-                // <ul className="mt-3 text-sm text-slate-700 list-disc pl-5 space-y-1 text-left">
                 <ul className="mt-3 text-sm text-slate-700 list-disc pl-5 space-y-1 text-center mx-auto max-w-xs">
                   {member.responsibilities.map((item, i) => (
                     <li key={i}>{item}</li>
@@ -206,9 +208,8 @@ export default function OrganisationalStructure() {
         })}
       </div>
 
-      <div className="mt-16 bg-yellow-50 border-l-4 border-yellow-400 p-4 max-w-3xl mx-auto text-sm text-slate-700">
-        <strong>Note:</strong> The federation recognises the “Federation Sokhna
-        Mame Diarra UK,” comprising women’s groups from Dahiras across the UK.
+      <div className="mt-20">
+        <SoxnaDiarraCard />
       </div>
     </section>
   );
