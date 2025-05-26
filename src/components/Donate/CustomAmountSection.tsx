@@ -41,7 +41,7 @@ export default function CustomAmountSection({ onDonate }: CustomAmountSectionPro
           Custom Donation
         </h2>
         <p className="text-slate-600 mb-6">
-          Enter any amount you'd like to give, along with a reference or purpose (e.g. logistics, accommodation, etc.)
+          Enter any amount you&apos;d like to give, along with a reference or purpose (e.g. logistics, accommodation, etc.)
         </p>
 
         <div className="space-y-4 text-left">
