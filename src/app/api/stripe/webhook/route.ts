@@ -1,87 +1,51 @@
-// app/api/stripe/webhook/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+// src/app/api/stripe/webhook/route.ts
+
+import { NextRequest } from 'next/server';
 import Stripe from 'stripe';
-import { Resend } from 'resend';
-import { generateReceiptPDF } from '@/lib/receipt';
+import { saveDonationToFirebase } from '@/lib/firebaseDonations';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-04-30.basil',
 });
+
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export async function POST(req: NextRequest) {
-  // 1️⃣ Retrieve Stripe signature header
-  const sig = req.headers.get('stripe-signature')!;
-  // 2️⃣ Read the raw request body as a Buffer
-  const buf = await req.arrayBuffer();
-  const rawBody = Buffer.from(buf);
-
-  let event: Stripe.Event;
   try {
-    // 3️⃣ Verify the signature against the raw payload
-    event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
-  } catch (err) {
-    console.error('⚠️ Webhook signature mismatch', err);
-    return NextResponse.json({ received: false }, { status: 400 });
-  }
+    const rawBody = await req.text();
+    const signature = req.headers.get('stripe-signature')!;
 
-  // Only handle the checkout.session.completed event
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object as Stripe.Checkout.Session;
+    const event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
 
-    // Guard: skip if no payment_intent
-    const piId = session.payment_intent as string | undefined;
-    if (!piId) {
-      console.log('⚠️ No payment_intent on session, skipping.');
-      return NextResponse.json({ received: true });
+    console.log('📥 Stripe webhook triggered');
+    console.log('📦 Event type:', event.type);
+
+    if (event.type === 'payment_intent.succeeded') {
+      const intent = event.data.object as Stripe.PaymentIntent;
+      const md = intent.metadata;
+      console.log('🧾 Metadata received:', md);
+
+      if (md?.formType === 'donation') {
+        console.log('✅ Saving donation to Firestore...');
+        await saveDonationToFirebase({
+          name: md.donor_name || 'Anonymous',
+          email: md.donor_email || '',
+          amount: Number(md.amount_gbp || 0),
+          campaign: md.campaign || 'General',
+          cause: md.item_title || 'Donation',
+          isAnonymous: md.is_anonymous === 'true',
+          dahiraCity: md.dahira_city || '',
+          childrenUnder16: Number(md.children_under_16 || 0),
+          createdByStripe: true,
+        });
+      } else {
+        console.log('⚠️ Not a donation formType — skipping.');
+      }
     }
 
-    // Retrieve PaymentIntent for metadata
-    const pi = await stripe.paymentIntents.retrieve(piId);
-    const meta = pi.metadata;
-
-    // Guard: skip if no customer email
-    const email = session.customer_details?.email;
-    if (!email) {
-      console.log('⚠️ No customer email on session, skipping email send.');
-      return NextResponse.json({ received: true });
-    }
-
-    // Generate the PDF receipt
-    const pdfBuffer = await generateReceiptPDF({
-      donorName:  meta.donor_name  || 'Anonymous',
-      donorEmail: email,
-      donorPhone: meta.donor_phone || '',
-      cause:      meta.item_title  || meta.campaign || 'Donation',
-      amount:     ((session.amount_total ?? 0) / 100).toFixed(2),
-      date:       meta.donation_date || new Date().toLocaleDateString('en-GB'),
-    });
-
-    // Send email via Resend with correct attachment keys
-    await resend.emails.send({
-      from:    'no-reply@ukmouride.co.uk',
-      to:      email,
-      subject: 'Your Donation Receipt from UK Murid Federation',
-      text: `
-Assalamu alaikum,
-
-JazakAllah khair for your generous donation of £${((session.amount_total ?? 0) / 100).toFixed(2)} towards ${meta.item_title}.
-
-Please find your official receipt attached.
-
-UK Murid Federation
-      `.trim(),
-      attachments: [
-        {
-          filename:    'donation-receipt.pdf',       // correct key
-          contentType: 'application/pdf',            // MIME type
-          content:     pdfBuffer.toString('base64'), // base64 payload
-        },
-      ],
-    });
+    return new Response('Webhook received successfully.', { status: 200 });
+  } catch (error: any) {
+    console.error('❌ Webhook error:', error.message);
+    return new Response(`Webhook error: ${error.message}`, { status: 400 });
   }
-
-  // Acknowledge receipt of the webhook
-  return NextResponse.json({ received: true });
 }

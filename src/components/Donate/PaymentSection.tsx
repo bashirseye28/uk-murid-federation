@@ -8,7 +8,7 @@ import type { DonationItem } from "./DonationGrid";
 
 interface PaymentSectionProps {
   campaignName: string;
-  selectedItem: DonationItem;
+  selectedItem: DonationItem & { campaign?: string }; // ✅ Accept optional campaign
   onBack: () => void;
 }
 
@@ -37,15 +37,23 @@ export default function PaymentSection({
 
     try {
       setLoading(true);
+
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ item: selectedItem, donor: donorInfo }),
+        body: JSON.stringify({
+          item: {
+            ...selectedItem,
+            campaign: selectedItem.campaign || campaignName, // ✅ Always include campaign
+          },
+          donor: donorInfo,
+        }),
       });
+
       const data = await res.json();
 
       if (data.url) {
-        window.location.href = data.url; // ✅ Stripe redirect
+        window.location.href = data.url;
       } else {
         alert("Failed to initiate payment.");
       }
@@ -74,7 +82,7 @@ export default function PaymentSection({
               price={selectedItem.price}
               onBack={onBack}
               onSubmit={(info: RegistrationInfo) =>
-                setDonorInfo({ ...info, isAnonymous: false }) // ✅ Store info, no email yet
+                setDonorInfo({ ...info, isAnonymous: false })
               }
             />
           ) : (
@@ -120,7 +128,9 @@ export default function PaymentSection({
               <ul className="mx-auto max-w-md space-y-4 text-left text-sm text-slate-800 md:text-base">
                 <li className="flex items-center justify-between border-b pb-2">
                   <span>Account Name:</span>
-                  <span className="font-semibold text-right">Yastabshiruna Binihmatin UK Murid Federation</span>
+                  <span className="font-semibold text-right">
+                    Yastabshiruna Binihmatin UK Murid Federation
+                  </span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span>Account Number:</span>
@@ -131,7 +141,9 @@ export default function PaymentSection({
                       className="flex items-center gap-1 text-mourid-green transition hover:text-mourid-blue"
                     >
                       <ClipboardCheck size={16} />
-                      {copied.accountNumber && <span className="text-xs text-green-600">Copied!</span>}
+                      {copied.accountNumber && (
+                        <span className="text-xs text-green-600">Copied!</span>
+                      )}
                     </button>
                   </div>
                 </li>
@@ -144,7 +156,9 @@ export default function PaymentSection({
                       className="flex items-center gap-1 text-mourid-green transition hover:text-mourid-blue"
                     >
                       <ClipboardCheck size={16} />
-                      {copied.sortCode && <span className="text-xs text-green-600">Copied!</span>}
+                      {copied.sortCode && (
+                        <span className="text-xs text-green-600">Copied!</span>
+                      )}
                     </button>
                   </div>
                 </li>

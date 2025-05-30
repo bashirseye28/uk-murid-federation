@@ -1,11 +1,10 @@
-// donationCampaigns.ts
 export type DonationItem = {
   id: number;
   title: string;
   description: string;
   image: string;
   price: number;
-  /** default → 'donation'; use 'registration' for items that need attendee details */
+  campaign?: string; // ✅ Add this line
   formType?: 'donation' | 'registration';
 };
 
@@ -13,7 +12,7 @@ export type DonationCampaign = {
   id: string;
   name: string;
   startDate: string; // YYYY-MM-DD
-  endDate:   string; // YYYY-MM-DD
+  endDate: string;   // YYYY-MM-DD
   items: DonationItem[];
 };
 
@@ -22,7 +21,7 @@ export const donationCampaigns: DonationCampaign[] = [
     id: 'bambaDay',
     name: 'Barkeelu – Bamba Day 2025',
     startDate: '2025-01-01',
-    endDate:   '2025-07-01',
+    endDate: '2025-07-01',
     items: [
       {
         id: 1,
@@ -37,7 +36,7 @@ export const donationCampaigns: DonationCampaign[] = [
         description: 'Register your attendance and support Bamba Day.',
         image: 'https://res.cloudinary.com/drulwmdhg/image/upload/v1748300816/WhatsApp_Image_2025-05-21_at_10.35.45_1_d6oqzm.jpg',
         price: 30,
-        formType: 'registration',              //  ➜ triggers the special form
+        formType: 'registration',
       },
       {
         id: 3,
@@ -73,7 +72,7 @@ export const donationCampaigns: DonationCampaign[] = [
     id: 'addiya',
     name: 'Addiya – Grand Magal 2025',
     startDate: '2025-07-02',
-    endDate:   '2025-09-30',
+    endDate: '2025-09-30',
     items: [
       {
         id: 1,
@@ -88,7 +87,7 @@ export const donationCampaigns: DonationCampaign[] = [
     id: 'social',
     name: 'Janazah Support – Repatriation Fund',
     startDate: '2025-10-01',
-    endDate:   '9999-12-31',
+    endDate: '9999-12-31',
     items: [
       {
         id: 1,

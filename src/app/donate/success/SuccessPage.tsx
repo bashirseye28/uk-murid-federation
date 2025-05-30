@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 import jsPDF from 'jspdf';
-import { sendRegistrationEmail } from '@/lib/sendRegistrationEmail';
 
 interface SuccessPageProps {
   donorName: string;
@@ -12,7 +11,8 @@ interface SuccessPageProps {
   cause: string;
   amount: string;
   date: string;
-  childrenUnder16?: number; // ✅ Optional number passed from payment flow
+  referenceId: string;
+  childrenUnder16?: number;
 }
 
 export default function SuccessPage({
@@ -22,10 +22,9 @@ export default function SuccessPage({
   cause,
   amount,
   date,
+  referenceId,
   childrenUnder16,
 }: SuccessPageProps) {
-  const hasSentEmail = useRef(false); // ✅ Prevent multiple sends
-
   const handleDownload = useCallback(async () => {
     const doc = new jsPDF();
     const logoUrl = 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
@@ -48,10 +47,9 @@ export default function SuccessPage({
     doc.text('Donation Receipt', 105, y, { align: 'center' });
 
     y += 15;
-    doc.setFontSize(18).setFont('helvetica', 'bold');
-    doc.text('UK Murid Federation', 20, y);
+    doc.setFontSize(18).text('UK Murid Federation', 20, y);
     y += 9;
-    doc.setFontSize(12).setFont('helvetica', 'normal');
+    doc.setFontSize(12).setFont('helvetica', '');
     doc.text('Company Number: 13535445', 20, y);
     y += 7;
     doc.text('Email: mouride.uk@gmail.com', 20, y);
@@ -59,13 +57,12 @@ export default function SuccessPage({
     doc.text('Website: https://ukmouride.co.uk', 20, y);
 
     y += 10;
-    doc.setLineWidth(0.5);
     doc.line(20, y, 190, y);
 
     y += 15;
     doc.setFont('helvetica', 'bold').text('Donor Information:', 20, y);
     y += 8;
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('helvetica', '');
     doc.text(`Donor Name: ${donorName}`, 20, y);
     y += 7;
     doc.text(`Email: ${donorEmail}`, 20, y);
@@ -75,23 +72,24 @@ export default function SuccessPage({
     y += 10;
     doc.setFont('helvetica', 'bold').text('Donation Details:', 20, y);
     y += 8;
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('helvetica', '');
     doc.text(`Reference: ${cause}`, 20, y);
     y += 7;
     doc.text(`Amount: £${amount}`, 20, y);
     y += 7;
     doc.text(`Date: ${date}`, 20, y);
+    y += 7;
+    doc.text(`Reference ID: ${referenceId}`, 20, y);
 
     if (typeof childrenUnder16 === 'number') {
       y += 10;
       doc.setFont('helvetica', 'bold').text('Children Attending:', 20, y);
       y += 7;
-      doc.setFont('helvetica', 'normal');
+      doc.setFont('helvetica', '');
       doc.text(`Children Under 16: ${childrenUnder16}`, 20, y);
     }
 
     y += 15;
-    doc.setLineWidth(0.3);
     doc.line(20, y, 190, y);
 
     y += 12;
@@ -101,7 +99,7 @@ export default function SuccessPage({
     });
 
     y += 15;
-    doc.setFontSize(9).setFont('helvetica', 'normal');
+    doc.setFontSize(9);
     doc.text(
       'This document serves as an official receipt for your donation. Thank you for supporting UK Murid Federation.',
       105,
@@ -110,30 +108,7 @@ export default function SuccessPage({
     );
 
     doc.save('donation-receipt.pdf');
-  }, [donorName, donorEmail, donorPhone, cause, amount, date, childrenUnder16]);
-
-  useEffect(() => {
-    if (!donorEmail || hasSentEmail.current) return;
-
-    hasSentEmail.current = true; // ✅ Ensure it only sends once after Stripe success
-
-    const sendEmail = async () => {
-      try {
-        await sendRegistrationEmail({
-          name: donorName,
-          email: donorEmail,
-          phone: donorPhone,
-          dahiraCity: cause,
-          childrenUnder16: childrenUnder16 ?? 0,
-        });
-        console.log('✅ Registration email sent after Stripe success');
-      } catch (error) {
-        console.error('❌ Failed to send registration email:', error);
-      }
-    };
-
-    sendEmail();
-  }, [donorName, donorEmail, donorPhone, cause, childrenUnder16]);
+  }, [donorName, donorEmail, donorPhone, cause, amount, date, referenceId, childrenUnder16]);
 
   return (
     <section className="py-16 px-6 bg-white min-h-screen flex flex-col items-center justify-center text-center">
@@ -171,6 +146,7 @@ export default function SuccessPage({
           <p><span className="font-semibold">Reference:</span> {cause}</p>
           <p><span className="font-semibold">Amount:</span> £{amount}</p>
           <p><span className="font-semibold">Date:</span> {date}</p>
+          <p><span className="font-semibold">Reference ID:</span> {referenceId}</p>
           {typeof childrenUnder16 === 'number' && (
             <p><span className="font-semibold">Children Under 16:</span> {childrenUnder16}</p>
           )}

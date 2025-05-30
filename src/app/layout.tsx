@@ -1,25 +1,24 @@
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
+import { Montserrat, Lato } from 'next/font/google';
+
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 
-// ✅ Google Fonts via next/font/google
-import { Montserrat, Lato } from 'next/font/google';
-
-// Set up Montserrat
+// Fonts setup
 const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
   variable: '--font-montserrat',
 });
 
-// Set up Lato
 const lato = Lato({
   subsets: ['latin'],
   weight: ['300', '400', '700'],
   variable: '--font-lato',
 });
 
+// Metadata
 export const metadata: Metadata = {
   title: 'UK Murid Federation',
   description:
@@ -54,13 +53,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+// Main Root Layout
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" className={`scroll-smooth ${montserrat.variable} ${lato.variable}`}>
       <body className="font-sans bg-white text-slate-900 antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        {/* Automatically skip Navbar/Footer for /admin via nested layouts */}
+        {/**
+         * All /admin routes should be placed in:
+         * src/app/admin/(dashboard)/layout.tsx
+         * and that layout will not include Navbar/Footer.
+         */}
+        {children}
       </body>
     </html>
   );

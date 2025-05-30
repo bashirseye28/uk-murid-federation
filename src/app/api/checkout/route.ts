@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
     const donationDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
 
     const metadata = {
+      formType: 'donation', // ✅ This tells the webhook it’s a donation
       donor_name: donorName,
       donor_email: donorEmail,
       donor_phone: donorPhone,
@@ -79,13 +80,13 @@ export async function POST(req: NextRequest) {
           quantity: 1,
         },
       ],
-      success_url: `${isLocalhost ? 'http://localhost:3001' : origin}/donate/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${isLocalhost ? 'http://localhost:3000' : origin}/donate/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/cancel`,
     });
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
-    console.error('Stripe error:', err);
+    console.error('❌ Stripe error:', err);
     return NextResponse.json(
       { error: 'Stripe session creation failed.' },
       { status: 500 }

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useRef, useEffect } from "react";
 import DonateHero from "@/components/Donate/DonateHero";
@@ -10,37 +10,34 @@ import { findCampaignById } from "@/lib/donations";
 import JaayanteCard from "@/components/Donate/JaayanteCard";
 import CustomAmountSection from "@/components/Donate/CustomAmountSection";
 
-const DonatePage = () => {
-  /** The item the user clicked, or null when browsing */
-  const [selectedItem, setSelectedItem] = useState<DonationItem | null>(null);
-  /** The active campaign (Bamba Day, Addiya, …) */
+type ExtendedDonationItem = DonationItem & { campaign?: string };
+
+export default function DonatePage() {
+  const [selectedItem, setSelectedItem] = useState<ExtendedDonationItem | null>(null);
   const [campaign, setCampaign] = useState<DonationCampaign | null>(null);
-  /** Scroll target when the payment section appears */
   const paymentRef = useRef<HTMLDivElement>(null);
 
-  /* Fetch the current campaign once on mount */
+  // Fetch the active campaign
   useEffect(() => {
     const active = findCampaignById("bambaDay") ?? donationCampaigns[0];
     setCampaign(active);
   }, []);
 
-  /* Handle click on a Donate button in the grid */
-  const handleDonate = (item: DonationItem) => {
+  // Handle donation item click
+  const handleDonate = (item: ExtendedDonationItem) => {
     setSelectedItem(item);
-    /** Give React one paint so PaymentSection exists */
-    setTimeout(() => paymentRef.current?.scrollIntoView({ behavior: "smooth" }), 60);
+    setTimeout(() => {
+      paymentRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 60);
   };
 
-  /* Return to the grid */
   const handleBack = () => {
     setSelectedItem(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!campaign) {
-    return (
-      <div className="py-24 text-center text-slate-600">Loading donation details…</div>
-    );
+    return <div className="py-24 text-center text-slate-600">Loading donation details…</div>;
   }
 
   return (
@@ -48,10 +45,11 @@ const DonatePage = () => {
       <DonateHero campaignName={campaign.name} />
       <WhyDonateSection />
 
-      {/* JaayanteCard visible only during Bamba Day and when no selection is made */}
+      {/* Show JaayanteCard only during Bamba Day and when no item selected */}
       {selectedItem === null && campaign.id === "bambaDay" && (
         <JaayanteCard
-          onSelect={(amount) =>
+          campaignName={campaign.name}
+          onSelect={({ amount, campaign }) =>
             handleDonate({
               id: 999,
               title: "Jaayante Contribution",
@@ -59,20 +57,23 @@ const DonatePage = () => {
               image: "",
               price: amount,
               formType: "donation",
+              campaign, // ✅ added
             })
           }
         />
       )}
 
-      {/* Grid and Custom amount visible until a cause is selected */}
+      {/* Grid + CustomAmount */}
       {selectedItem === null && (
         <>
-          <DonationGrid onDonate={handleDonate} />
-          <CustomAmountSection onDonate={handleDonate} />
+          <DonationGrid onDonate={(item) => handleDonate({ ...item, campaign: campaign.name })} />
+          <CustomAmountSection
+            onDonate={(item) => handleDonate({ ...item, campaign: campaign.name })}
+          />
         </>
       )}
 
-      {/* Payment / registration flow */}
+      {/* Payment flow */}
       {selectedItem !== null && (
         <div ref={paymentRef}>
           <PaymentSection
@@ -84,6 +85,4 @@ const DonatePage = () => {
       )}
     </>
   );
-};
-
-export default DonatePage;
+}
