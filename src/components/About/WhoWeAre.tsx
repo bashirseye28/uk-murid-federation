@@ -18,16 +18,17 @@ export default function WhoWeAre() {
             Who We Are
           </h2>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-            The UK Murid Federation is a unifying body for Murid Dahiras across
-            the United Kingdom. Our mission is to uphold the teachings and
-            spiritual legacy of Sheikh Ahmadou Bamba, promote Islamic values,
-            and foster unity and cooperation among Murid communities.
+            The UK Murid Communities Federation is a unifying body for Murid
+            Dahiras across the United Kingdom. Our mission is to uphold the
+            teachings and spiritual legacy of Sheikh Ahmadou Bamba, promote
+            Islamic values, and foster unity and cooperation among Murid
+            communities.
           </p>
           <p className="text-slate-700 text-sm md:text-base mt-4 leading-relaxed">
-            Through spiritual gatherings, educational programs, and social
-            initiatives, we aim to strengthen the bond of brotherhood and
-            sisterhood within the Murid diaspora, and contribute positively to
-            wider society.
+            Through spiritual gatherings, educational programmes, and social
+            initiatives, we aim to strengthen bonds of brotherhood and
+            sisterhood within the Murid diaspora, while contributing positively
+            to wider society.
           </p>
         </motion.div>
 
@@ -36,15 +37,15 @@ export default function WhoWeAre() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }} // slight delay for the image
-          className="w-full h-64 md:h-96 relative rounded-lg overflow-hidden shadow"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative w-full" // remove h-64 / h-96
         >
           <Image
-            src="https://res.cloudinary.com/dnmoy5wua/image/upload/v1746750549/question-mark-icon-solving-problem-solution-concept_uv47ma.jpg"
+            src="https://res.cloudinary.com/drulwmdhg/image/upload/c_fill,ar_4:3/v1748492737/jjvtolf7hj9kssj4vgqq.jpg"
             alt="Spiritual gathering organized by the UK Murid Federation"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
+            width={700}
+            height={500}
+            className="rounded-lg shadow w-full h-auto"
           />
         </motion.div>
       </div>

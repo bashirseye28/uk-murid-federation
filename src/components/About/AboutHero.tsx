@@ -14,11 +14,11 @@ export default function AboutHero() {
         hidden: { opacity: 0, y: 40 },
         visible: { opacity: 1, y: 0 },
       }}
-      className="relative h-[60vh] flex items-center justify-center overflow-hidden"
+      className="relative h-[70vh] flex items-center justify-center overflow-hidden"
     >
       {/* Background Image */}
       <Image
-        src="https://res.cloudinary.com/dnmoy5wua/image/upload/v1746742003/herotry_vvbkqd.jpg"
+        src="https://res.cloudinary.com/drulwmdhg/image/upload/c_crop,ar_16:9/v1748493962/lplo9wznejjjiecvdc6p.png"
         alt="About UK Murid Federation"
         fill
         sizes="100vw"
@@ -31,7 +31,7 @@ export default function AboutHero() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-2xl text-white">
-        <h1 className="text-3xl md:text-5xl font-heading font-bold mb-4 drop-shadow-md">
+        <h1 className="text-3xl text-white md:text-5xl font-heading font-bold mb-4 drop-shadow-md">
           About Us - Who We Are
         </h1>
         <p className="text-white/80 text-base md:text-lg">

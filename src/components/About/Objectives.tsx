@@ -7,27 +7,27 @@ const objectives = [
   {
     title: 'Collective Celebrations',
     description:
-      'Organise UK-wide events such as Bamba Day and Mame Sheikh Ibrahima Fall Day to strengthen communal bonds.',
+      'We organise UK-wide events such as Bamba Day and Mame Sheikh Ibrahima Fall Day to celebrate our heritage and strengthen community bonds.',
   },
   {
     title: 'Annual Ziarra',
     description:
-      'Coordinate the annual pilgrimage to Touba, ensuring seamless logistics and spiritual fulfilment for participants.',
+      'We coordinate the annual pilgrimage to Touba, ensuring seamless logistics and a spiritually enriching experience for participants.'
   },
   {
     title: 'Social Support',
     description:
-      'Provide assistance for repatriation and funeral expenses for community members in need.',
+      'We provide assistance with funeral arrangements, repatriation, and other critical support for community members in need.',
   },
   {
     title: 'Khalif Projects',
     description:
-      'Mobilise resources to support initiatives led by the Khalif General of the Murids, including the Touba University project.',
+      'We mobilise resources for initiatives led by the Khalif General of the Murids, including major projects like the Touba University.',
   },
   {
     title: 'Cultural Preservation',
     description:
-      'Promote the literary and spiritual works of Sheikh Ahmadou Bamba through educational programmes and interfaith dialogue.',
+      'We promote the literary and spiritual works of Sheikh Ahmadou Bamba through education, media, and interfaith dialogue.',
   },
 ];
 

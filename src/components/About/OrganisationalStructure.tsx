@@ -138,6 +138,25 @@ const members: Member[] = [
       "Organise Annual Ziarra and religious education.",
       "Ensure alignment with Islamic values."
     ]
+  },
+  {
+    name: "S Abdul Hakim Mbaye",
+    title: "Ziarra coordinator",
+    image: "/profile.jpg",
+    responsibilities: [
+      "Plan and coordinate the Annual Ziarra event.",
+      "Manage logistics, communications, and community engagement.",
+      "Ensure the event aligns with religious and cultural values."
+    ]
+  },
+  {
+    name: "S Ibrahima Ndiaye",
+    title: "Head of kurels Conservatoire",
+    image: "/profile.jpg",
+    responsibilities: [
+      "Oversee the kurels Conservatoire and its activities.",
+      "Coordinate with Kureel leaders."
+    ]
   }
 ];
 

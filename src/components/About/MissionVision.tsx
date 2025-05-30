@@ -29,13 +29,22 @@ export default function MissionVision() {
         >
           <div className="flex items-center mb-4">
             <Flag className="w-6 h-6 text-mourid-green mr-2" />
-            <h3 className="text-xl font-semibold text-mourid-green">Our Mission</h3>
+            <h3 className="text-xl font-semibold text-mourid-green">
+              Our Mission
+            </h3>
           </div>
-          <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-            To serve the Murid community by promoting unity, organising religious and cultural events,
-            and providing social support. We strive to uphold the values of compassion, solidarity, and service,
-            while preserving the rich spiritual legacy of Sheikh Ahmadou Bamba.
-          </p>
+          <div className="text-slate-700 text-sm md:text-base leading-relaxed space-y-3">
+            <p>To serve the Murid community by:</p>
+            <ul className="list-disc list-inside pl-2">
+              <li>Promoting unity across Dahiras,</li>
+              <li>Organising religious and cultural events,</li>
+              <li>Providing social and welfare support.</li>
+            </ul>
+            <p>
+              We strive to uphold the values of compassion, solidarity, and service,
+              while preserving the rich spiritual legacy of Sheikh Ahmadou Bamba.
+            </p>
+          </div>
         </motion.div>
 
         {/* Vision */}
@@ -48,11 +57,14 @@ export default function MissionVision() {
         >
           <div className="flex items-center mb-4">
             <Eye className="w-6 h-6 text-mourid-green mr-2" />
-            <h3 className="text-xl font-semibold text-mourid-green">Our Vision</h3>
+            <h3 className="text-xl font-semibold text-mourid-green">
+              Our Vision
+            </h3>
           </div>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-            A vibrant and united Murid community in the UK, actively engaged in spiritual, educational,
-            and charitable activities that benefit both members and society at large.
+            A vibrant and united Murid community in the UK—actively engaged in
+            spiritual, educational, and charitable activities that benefit both
+            members and broader society.
           </p>
         </motion.div>
       </div>

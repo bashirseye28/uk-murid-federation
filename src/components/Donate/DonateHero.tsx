@@ -22,7 +22,7 @@ export default function DonateHero({ campaignName }: DonateHeroProps) {
     >
       {/* Background Image */}
       <Image
-        src="https://res.cloudinary.com/dnmoy5wua/image/upload/v1746742003/herotry_vvbkqd.jpg"
+        src="https://res.cloudinary.com/drulwmdhg/image/upload/c_crop,ar_16:9/v1748493962/lplo9wznejjjiecvdc6p.png"
         alt="Support UK Murid Federation"
         fill
         sizes="100vw"
@@ -35,7 +35,7 @@ export default function DonateHero({ campaignName }: DonateHeroProps) {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-3xl text-white bg-black/30 backdrop-blur-md rounded-lg py-8 shadow-lg">
-        <h1 className="text-4xl md:text-5xl font-heading font-bold leading-tight mb-4 drop-shadow-md">
+        <h1 className="text-4xl text-white md:text-5xl font-heading font-bold leading-tight mb-4 drop-shadow-md">
           Support the Federation
         </h1>
 
@@ -56,7 +56,7 @@ export default function DonateHero({ campaignName }: DonateHeroProps) {
         <div>
           <a
             href="#list_donation"
-            className="inline-block border border-white text-white font-semibold px-6 py-2 rounded-md shadow transition hover:bg-white hover:text-mourid-green"
+            className="inline-block border border-white text-white font-semibold px-6 py-2 rounded-md shadow transition hover:bg-mourid-green hover:text-white focus:outline-none focus:ring-2 focus:ring-mourid-yellow"
           >
             Donate Now
           </a>

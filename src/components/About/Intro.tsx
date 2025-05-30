@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
 export default function Intro() {
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true }}
       className="bg-white py-16 px-6"
     >
@@ -17,15 +17,17 @@ export default function Intro() {
         </h2>
 
         <p className="text-slate-700 text-base md:text-lg leading-relaxed mb-6">
-          A unified body representing the collective efforts of Murid Dahiras across the United Kingdom. Our
-          federation is dedicated to fostering spiritual growth, community cohesion, and charitable initiatives
-          in alignment with the teachings of Sheikh Ahmadou Bamba.
+          A unified body representing the collective efforts of Murid Dahiras
+          across the United Kingdom. Our federation is dedicated to fostering
+          spiritual growth, community cohesion, and charitable initiatives in
+          alignment with the teachings of Sheikh Ahmadou Bamba.
         </p>
 
         <p className="text-sm text-slate-500 italic">
-          Registered as a Community Interest Company (No. 13535445) under UK law.
+          Registered as a Community Interest Company (No. 13535445) under UK
+          law.
         </p>
       </div>
     </motion.section>
-  )
+  );
 }
