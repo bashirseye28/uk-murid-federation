@@ -29,12 +29,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'UK Murid Federation' }],
   creator: 'UK Murid Federation',
-  metadataBase: new URL('https://ukmouride.co.uk'),
+  metadataBase: new URL('https://murid.co.uk'),
   openGraph: {
     title: 'UK Murid Federation',
     description:
       'Connecting Murid Dahiras in the UK to the spiritual legacy of Sheikh Ahmadou Bamba.',
-    url: 'https://ukmouride.co.uk',
+    url: 'https://murid.co.uk',
     siteName: 'UK Murid Federation',
     images: [
       {

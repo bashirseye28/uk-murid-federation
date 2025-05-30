@@ -13,7 +13,7 @@ export default function ContactInfo() {
         <div className="space-y-6 text-slate-700 text-base">
           <div className="flex items-center justify-center gap-3">
             <Mail size={20} className="text-mourid-green" />
-            <span>mouride.uk@gmail.com</span>
+            <span>Yastabshirunabinihmatin@hotmail.com</span>
           </div>
 
           <div className="flex items-center justify-center gap-3">

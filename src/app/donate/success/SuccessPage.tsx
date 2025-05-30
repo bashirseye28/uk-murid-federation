@@ -52,9 +52,9 @@ export default function SuccessPage({
     doc.setFontSize(12).setFont('helvetica', '');
     doc.text('Company Number: 13535445', 20, y);
     y += 7;
-    doc.text('Email: mouride.uk@gmail.com', 20, y);
+    doc.text('Email: yastabshirunabinihmatin@hotmail.com', 20, y);
     y += 7;
-    doc.text('Website: https://ukmouride.co.uk', 20, y);
+    doc.text('Website: https:/murid.co.uk', 20, y);
 
     y += 10;
     doc.line(20, y, 190, y);
@@ -131,7 +131,7 @@ export default function SuccessPage({
           <br />
           If you have any questions, feel free to{' '}
           <a
-            href="mailto:mouride.uk@gmail.com"
+            href="mailto:yastabshirunabinihmatin@hotmail.com"
             className="underline text-mourid-green"
           >
             contact us

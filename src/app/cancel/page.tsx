@@ -29,7 +29,7 @@ export default function CancelPage() {
         <p className="text-sm text-slate-500 mb-6">
           Need help or have questions?{' '}
           <a
-            href="mailto:mouride.uk@gmail.com"
+            href="mailto:Yastabshirunabinihmatin@hotmail.com"
             className="underline text-mourid-green hover:text-mourid-blue"
           >
             Contact our team

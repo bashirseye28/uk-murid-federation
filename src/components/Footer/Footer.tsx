@@ -73,8 +73,8 @@ export default function Footer() {
           <h4 className="text-lg font-bold mb-4 tracking-wide">Contact Us</h4>
           <p className="text-sm mb-3 flex items-center gap-2">
             <Mail size={16} aria-hidden="true" />
-            <a href="mailto:mouride.uk@gmail.com" className="underline hover:text-mourid-green focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
-              mouride.uk@gmail.com
+            <a href="mailto:yastabshirunabinihmatin@hotmail.com" className="underline hover:text-mourid-green focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
+              yastabshirunabinihmatin@hotmail.com
             </a>
           </p>
           <p className="text-sm mb-4 flex items-center gap-2">

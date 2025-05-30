@@ -6,7 +6,7 @@ export const dahiras = [
     name: "Fathul Badiih",
     leader: "S. Moustapha Gueye",
     city: "Manchester",
-    logo: "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png",
+    logo: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748647169/gc4gzkma1wbxoqmxk5d1.jpg",
     whatsapp: "https://wa.me/447562715821"
   },
   {
@@ -30,7 +30,7 @@ export const dahiras = [
     name: "Mafatiihul Bichri",
     leader: "S. Fallou Gueye",
     city: "Leeds",
-    logo: "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png",
+    logo: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748647169/nqcf3wvtuetc9ec4gtg0.jpg",
     whatsapp: "https://wa.me/447490314011"
   },
   {
@@ -54,7 +54,7 @@ export const dahiras = [
     name: "Touba Tawfekh",
     leader: "S. Mamadou Mbengue",
     city: "Birmingham",
-    logo: "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png",
+    logo: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748647444/b8bm7eqv4m08wwu6vwdi.jpg",
     whatsapp: "https://wa.me/447877580263"
   },
   {
@@ -62,7 +62,7 @@ export const dahiras = [
     name: "Wa Kaana Haqqan",
     leader: "S. Dame Gueye",
     city: "Bristol",
-    logo: "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png",
+    logo: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748647169/jstgjunbuwjke4tduiye.jpg",
     whatsapp: "https://wa.me/447455335536"
   },
   {
@@ -70,7 +70,7 @@ export const dahiras = [
     name: "Wa Kaana Haqqan",
     leader: "S. Abdul Akim Mbaye",
     city: "Crawley Brighton",
-    logo: "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png",
+    logo: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748647169/be4tdcslfgmhnzvze3td.jpg",
     whatsapp: "https://wa.me/447312507923"
   },
   {
@@ -78,7 +78,7 @@ export const dahiras = [
     name: "Wa Kaana Haqqan",
     leader: "S. Abdullah Dieng Fawzayni",
     city: "London",
-    logo: "https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png",
+    logo: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748647169/ddxulgsv91qb6r4kfgvc.jpg",
     whatsapp: "https://wa.me/447464190638"
   }
 ].sort((a, b) => a.name.localeCompare(b.name));

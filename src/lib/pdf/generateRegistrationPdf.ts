@@ -33,9 +33,9 @@ export async function generateRegistrationPDF(data: RegistrationPDFData): Promis
   doc.setFontSize(16).text('UK Murid Federation', 20, y);
   y += 8;
   doc.setFontSize(11);
-  doc.text('Email: mouride.uk@gmail.com', 20, y);
+  doc.text('Email: yastabshirunabinihmatin@hotmail.com', 20, y);
   y += 6;
-  doc.text('Website: https://ukmouride.co.uk', 20, y);
+  doc.text('Website: https://kmurid.co.uk', 20, y);
 
   y += 8;
   doc.setLineWidth(0.5);

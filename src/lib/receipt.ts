@@ -43,9 +43,9 @@ export async function generateReceiptPDF(data: ReceiptData): Promise<Buffer> {
   doc.setFontSize(12).setFont('helvetica', 'normal');
   doc.text('Company Number: 13535445', 20, y);
   y += 7;
-  doc.text('Email: mouride.uk@gmail.com', 20, y);
+  doc.text('Email: gmail.com', 20, y);
   y += 7;
-  doc.text('Website: https://ukmouride.co.uk', 20, y);
+  doc.text('Website: https://murid.co.uk', 20, y);
 
   // Divider
   y += 10;

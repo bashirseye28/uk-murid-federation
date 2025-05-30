@@ -93,8 +93,8 @@ export default function ContactForm() {
           >
             ⚠️ Oops, something went wrong while sending your message. Please try
             again later or email us directly at{" "}
-            <a href="mailto:mouride.uk@gmail.com" className="underline">
-              mouride.uk@gmail.com
+            <a href="mailto:yastabshirunabinihmatin@hotmail.com" className="underline">
+              yastabshirunabinihmatin@hotmail.com
             </a>
             .
           </div>
