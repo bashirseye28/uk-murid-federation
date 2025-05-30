@@ -24,7 +24,7 @@ export default function AboutPreview() {
         <div className="order-1 md:order-2 flex">
           <div className="relative w-full rounded-md overflow-hidden shadow-md flex-1">
             <Image
-              src="https://res.cloudinary.com/dnmoy5wua/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1746742003/herotry_vvbkqd.jpg"
+              src="https://res.cloudinary.com/drulwmdhg/image/upload/v1748494900/kesqpsuv8mufvipyog8l.jpg"
               alt="UK and Touba symbolic illustration"
               fill
               className="object-cover"

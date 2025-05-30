@@ -5,17 +5,32 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-[700px] md:min-h-600px] flex items-center justify-center text-center overflow-hidden">
-      {/* Background Image and Overlay */}
+    <section className="relative w-full min-h-[600px] flex items-center justify-center text-center overflow-hidden">
+      {/* Background Images */}
       <div className="absolute inset-0 w-full h-full">
-        <Image
-          src="/banner_federation3.jpg"
-          alt="Bamba Day UK 2025 Hero Background"
-          fill
-          className="object-cover object-top w-full h-full"
-          priority
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-60" />
+        {/* Desktop Image */}
+        <div className="hidden md:block absolute inset-0">
+          <Image
+            src="https://res.cloudinary.com/drulwmdhg/image/upload/c_fill,ar_16:9/v1748493962/lplo9wznejjjiecvdc6p.png"
+            alt="Desktop Hero Background"
+            fill
+            className="object-cover object-top"
+            priority
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-60" />
+        </div>
+
+        {/* Mobile Image */}
+        <div className="md:hidden absolute inset-0">
+          <Image
+            src="https://res.cloudinary.com/drulwmdhg/image/upload/c_fill,ar_9:16/v1748493962/lplo9wznejjjiecvdc6p.png"
+            alt="Mobile Hero Background"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-60" />
+        </div>
       </div>
 
       {/* Hero Content */}
@@ -25,10 +40,9 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <h1 className="text-2xl sm:text-4xl md:text-5xl text-white font-heading font-bold mb-4 leading-tight">
+        <h1 className="text-2xl text-white sm:text-4xl md:text-5xl font-heading font-bold mb-4 leading-tight">
           YASTABSHIRUNA BINIHMATIN
         </h1>
-
         <p className="mt-4 text-sm sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
           Uniting all Mourid Dahiras in the United Kingdom to honour the teachings of Sheikh Ahmadou Bamba.
         </p>
