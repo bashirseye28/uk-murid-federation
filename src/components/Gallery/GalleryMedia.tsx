@@ -1,42 +1,49 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 type GalleryItem = {
-  src?: string
-  alt: string
-  description?: string
-  video?: string
-}
+  src?: string;
+  alt: string;
+  description?: string;
+  video?: string;
+  createdAt?: number; // Timestamp for sorting
+};
 
 export default function GalleryMedia() {
-  const [gallery, setGallery] = useState<GalleryItem[]>([])
-  const [visibleCount, setVisibleCount] = useState(6)
-  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null)
+  const [gallery, setGallery] = useState<GalleryItem[]>([]);
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
   useEffect(() => {
     const loadGallery = async () => {
       try {
-        const res = await fetch(`/gallery.json?cb=${Date.now()}`) // Cache bust
-        const data = await res.json()
-        setGallery(data.reverse()) // Assuming latest items are last
-      } catch (error) {
-        console.error('Failed to load gallery:', error)
-      }
-    }
+        const res = await fetch(`/gallery.json?cb=${Date.now()}`); // Cache bust
+        const data = await res.json();
 
-    loadGallery()
-  }, [])
+        const sorted = data.sort(
+          (a: GalleryItem, b: GalleryItem) =>
+            (b.createdAt || 0) - (a.createdAt || 0)
+        );
+
+        setGallery(sorted);
+      } catch (error) {
+        console.error("Failed to load gallery:", error);
+      }
+    };
+
+    loadGallery();
+  }, []);
 
   const handleLoadMore = () => {
-    const totalImages = gallery.filter(item => item.src).length
-    setVisibleCount(prev => Math.min(prev + 6, totalImages))
-  }
+    const totalImages = gallery.filter((item) => item.src).length;
+    setVisibleCount((prev) => Math.min(prev + 6, totalImages));
+  };
 
-  const images = gallery.filter(item => item.src)
-  const videos = gallery.filter(item => item.video)
+  const images = gallery.filter((item) => item.src);
+  const videos = gallery.filter((item) => item.video);
 
   return (
     <section id="gallery" className="py-16 px-6 bg-white">
@@ -67,8 +74,12 @@ export default function GalleryMedia() {
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-2 text-mourid-green">{video.alt}</h3>
-                    <p className="text-sm text-slate-600">{video.description}</p>
+                    <h3 className="text-lg font-semibold mb-2 text-mourid-green">
+                      {video.alt}
+                    </h3>
+                    <p className="text-sm text-slate-600">
+                      {video.description}
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -121,7 +132,7 @@ export default function GalleryMedia() {
               href="https://t.me/UKmurid"
               target="_blank"
               rel="noopener noreferrer"
-                className="inline-block border border-mourid-green text-mourid-green px-5 py-2 rounded-md text-sm font-semibold hover:bg-mourid-green hover:text-white transition"
+              className="inline-block border border-mourid-green text-mourid-green px-5 py-2 rounded-md text-sm font-semibold hover:bg-mourid-green hover:text-white transition"
               // className="inline-block bg-slate-800 text-white px-6 py-3 rounded-md text-sm font-semibold hover:bg-slate-700 transition"
             >
               View Full Gallery on Telegram
@@ -156,5 +167,5 @@ export default function GalleryMedia() {
         </div>
       )}
     </section>
-  )
+  );
 }
