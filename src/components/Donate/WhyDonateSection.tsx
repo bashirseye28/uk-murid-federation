@@ -11,7 +11,7 @@ export default function WhyDonateSection() {
     {
       icon: <FontAwesomeIcon icon={faMosque} className="w-6 h-6 text-mourid-yellow" />,
       title: 'Support Our Spiritual Mission',
-      desc: 'Your donations help preserve the teachings of Sheikh Ahmadou Bamba and support the growth of Mourid communities.',
+      desc: 'Your donations help preserve the teachings of Sheikh Ahmadou Bamba and support the growth of Murid communities.',
     },
     {
       icon: <BookOpen className="w-6 h-6 text-mourid-yellow" />,
