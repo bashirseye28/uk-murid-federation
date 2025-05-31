@@ -41,7 +41,7 @@ export default function AboutPreview() {
             </h2>
 
             <p className="text-base md:text-lg font-sans text-slate-700 leading-relaxed mb-6">
-              The UK Murid Federation brings together Mourid Dahiras across the United Kingdom to celebrate, preserve,
+              The UK Murid Federation brings together Morid Dahiras across the United Kingdom to celebrate, preserve,
               and promote the teachings of Sheikh Ahmadou Bamba. Rooted in unity, peace, and education, we strive
               to strengthen our communities and honour the spiritual legacy of the Mouridiyya tradition.
             </p>

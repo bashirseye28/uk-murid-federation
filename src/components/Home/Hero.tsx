@@ -44,7 +44,7 @@ export default function Hero() {
           YASTABSHIRUNA BINIHMATIN
         </h1>
         <p className="mt-4 text-sm sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-          Uniting all Mourid Dahiras in the United Kingdom to honour the teachings of Sheikh Ahmadou Bamba.
+          Uniting all Murid Dahiras in the United Kingdom to honour the teachings of Sheikh Ahmadou Bamba.
         </p>
 
         <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4">
