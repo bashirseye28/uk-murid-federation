@@ -121,7 +121,8 @@ export default function GalleryMedia() {
               href="https://t.me/UKmurid"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-slate-800 text-white px-6 py-3 rounded-md text-sm font-semibold hover:bg-slate-700 transition"
+                className="inline-block border border-mourid-green text-mourid-green px-5 py-2 rounded-md text-sm font-semibold hover:bg-mourid-green hover:text-white transition"
+              // className="inline-block bg-slate-800 text-white px-6 py-3 rounded-md text-sm font-semibold hover:bg-slate-700 transition"
             >
               View Full Gallery on Telegram
             </a>
