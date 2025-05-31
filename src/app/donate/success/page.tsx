@@ -29,7 +29,7 @@ export default async function Success(props: any) {
       expand: ['payment_intent'],
     });
   } catch (error) {
-    console.error('Failed to retrieve session:', error);
+    console.error('❌ Failed to retrieve session:', error);
     return redirect('/donate');
   }
 
@@ -41,6 +41,7 @@ export default async function Success(props: any) {
   const donorEmail =
     session.customer_details?.email || meta.donor_email || 'Not Provided';
   const donorPhone = meta.donor_phone || 'Not Provided';
+  const cityOrDahira = meta.dahira_city || 'Not Provided';
   const cause = meta.item_title || meta.campaign || 'General Donation';
   const amount = ((session.amount_total ?? 0) / 100).toFixed(2);
   const date =
@@ -56,6 +57,7 @@ export default async function Success(props: any) {
       donorName={donorName}
       donorEmail={donorEmail}
       donorPhone={donorPhone}
+      cityOrDahira={cityOrDahira}
       cause={cause}
       amount={amount}
       date={date}

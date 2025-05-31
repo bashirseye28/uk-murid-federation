@@ -2,12 +2,13 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Mail, User, Smartphone, ArrowLeft } from "lucide-react";
+import { Mail, User, Smartphone, ArrowLeft, MapPin } from "lucide-react";
 
 export interface DonorInfo {
   name?: string;
   email: string;
   phone?: string;
+  cityOrDahira?: string;
   isAnonymous: boolean;
 }
 
@@ -20,13 +21,20 @@ interface DonationFormProps {
 const baseInput =
   "w-full rounded-lg border border-gray-300 px-10 py-3 text-sm shadow-sm focus:ring-2 focus:ring-mourid-green focus:border-mourid-green";
 
-export default function DonationForm({ amount, onSubmit, onBack }: DonationFormProps) {
+export default function DonationForm({
+  amount,
+  onSubmit,
+  onBack,
+}: DonationFormProps) {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isValid },
-  } = useForm<DonorInfo>({ mode: "onChange", defaultValues: { isAnonymous: false } });
+  } = useForm<DonorInfo>({
+    mode: "onChange",
+    defaultValues: { isAnonymous: false },
+  });
 
   const anonymous = watch("isAnonymous");
 
@@ -41,7 +49,8 @@ export default function DonationForm({ amount, onSubmit, onBack }: DonationFormP
         <h3 className="text-2xl font-bold text-mourid-green">Donor Details</h3>
         {amount !== undefined && (
           <p className="mt-1 text-sm text-slate-600">
-            You are donating <span className="font-medium">£{amount.toLocaleString()}</span>
+            You are donating{" "}
+            <span className="font-medium">£{amount.toLocaleString()}</span>
           </p>
         )}
       </div>
@@ -69,7 +78,9 @@ export default function DonationForm({ amount, onSubmit, onBack }: DonationFormP
               aria-label="Full name"
             />
           </div>
-          {errors.name && <p className="mt-1 text-xs text-red-600">Name is required.</p>}
+          {errors.name && (
+            <p className="mt-1 text-xs text-red-600">Name is required.</p>
+          )}
         </div>
       )}
 
@@ -80,7 +91,10 @@ export default function DonationForm({ amount, onSubmit, onBack }: DonationFormP
           <input
             {...register("email", {
               required: "Email is required.",
-              pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email." },
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Enter a valid email.",
+              },
             })}
             type="email"
             placeholder="Enter your email address"
@@ -88,7 +102,9 @@ export default function DonationForm({ amount, onSubmit, onBack }: DonationFormP
             aria-label="Email address"
           />
         </div>
-        {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>
+        )}
       </div>
 
       {/* Phone */}
@@ -106,6 +122,28 @@ export default function DonationForm({ amount, onSubmit, onBack }: DonationFormP
           </div>
         </div>
       )}
+
+      {/* City or Dahira */}
+      {/* City or Dahira (Required for all) */}
+      <div>
+        <div className="relative">
+          <MapPin className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-mourid-blue" />
+          <input
+            {...register("cityOrDahira", {
+              required: "City or Dahira is required.",
+            })}
+            type="text"
+            placeholder="Enter your City or Dahira"
+            className={`${baseInput} ${errors.cityOrDahira ? "border-red-500" : ""}`}
+            aria-label="City or Dahira"
+          />
+        </div>
+        {errors.cityOrDahira && (
+          <p className="mt-1 text-xs text-red-600">
+            {errors.cityOrDahira.message}
+          </p>
+        )}
+      </div>
 
       {/* ACTION BUTTONS */}
       <div className="space-y-3">

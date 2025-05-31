@@ -39,6 +39,7 @@ interface Donation {
   item_title: string;
   amount_gbp: string;
   donation_date: string;
+  dahira_city?: string;
   is_anonymous?: boolean;
   createdAt?: { seconds: number; nanoseconds: number };
 }
@@ -63,7 +64,7 @@ export default function DonationsPage() {
         const data = await res.json();
         setDonations(data);
       } catch (err) {
-        console.error("\u274C Failed to fetch donations:", err);
+        console.error("❌ Failed to fetch donations:", err);
       }
     };
 
@@ -158,8 +159,7 @@ export default function DonationsPage() {
       donor_name: d.donor_name,
       donor_email: d.donor_email,
       phone: "",
-      dahira_city: "",
-      children_under_16: "",
+      dahira_city: d.dahira_city || "",
       donation_date: d.donation_date,
       campaign: d.campaign,
       item_title: d.item_title,
@@ -267,6 +267,7 @@ export default function DonationsPage() {
               <TableHead>Email</TableHead>
               <TableHead>Campaign</TableHead>
               <TableHead>Reference</TableHead>
+              <TableHead>Dahira / City</TableHead>
               <TableHead>Amount</TableHead>
               <TableHead>Date</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -280,6 +281,7 @@ export default function DonationsPage() {
                   <TableCell>{d.donor_email}</TableCell>
                   <TableCell>{d.campaign}</TableCell>
                   <TableCell>{d.item_title}</TableCell>
+                  <TableCell>{d.dahira_city || '-'}</TableCell>
                   <TableCell className="text-mourid-green font-semibold">
                     £{d.amount_gbp}
                   </TableCell>
@@ -300,7 +302,7 @@ export default function DonationsPage() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-6 text-slate-500">
+                <TableCell colSpan={8} className="text-center py-6 text-slate-500">
                   No donations found.
                 </TableCell>
               </TableRow>

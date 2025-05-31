@@ -8,6 +8,7 @@ interface SuccessPageProps {
   donorName: string;
   donorEmail: string;
   donorPhone: string;
+  cityOrDahira: string;
   cause: string;
   amount: string;
   date: string;
@@ -19,6 +20,7 @@ export default function SuccessPage({
   donorName,
   donorEmail,
   donorPhone,
+  cityOrDahira,
   cause,
   amount,
   date,
@@ -30,7 +32,6 @@ export default function SuccessPage({
     const logoUrl =
       'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
 
-    // Load logo with error handling
     try {
       const blob = await fetch(logoUrl).then((res) => res.blob());
       const logoBase64 = await new Promise<string>((resolve, reject) => {
@@ -57,7 +58,7 @@ export default function SuccessPage({
     y += 7;
     doc.text('Email: yastabshirunabinihmatin@hotmail.com', 20, y);
     y += 7;
-    doc.text('Website: https://murid.co.uk', 20, y); // Fixed
+    doc.text('Website: https://murid.co.uk', 20, y);
 
     y += 10;
     doc.line(20, y, 190, y);
@@ -71,6 +72,8 @@ export default function SuccessPage({
     doc.text(`Email: ${donorEmail}`, 20, y);
     y += 7;
     doc.text(`Phone: ${donorPhone}`, 20, y);
+    y += 7;
+    doc.text(`City or Dahira: ${cityOrDahira}`, 20, y);
 
     y += 10;
     doc.setFont('helvetica', 'bold').text('Donation Details:', 20, y);
@@ -115,6 +118,7 @@ export default function SuccessPage({
     donorName,
     donorEmail,
     donorPhone,
+    cityOrDahira,
     cause,
     amount,
     date,
@@ -161,6 +165,9 @@ export default function SuccessPage({
           </p>
           <p>
             <span className="font-semibold">Phone:</span> {donorPhone}
+          </p>
+          <p>
+            <span className="font-semibold">City or Dahira:</span> {cityOrDahira}
           </p>
           <p>
             <span className="font-semibold">Reference:</span> {cause}
