@@ -9,8 +9,9 @@ import useAuthCheck from "@/hooks/useAuthCheck";
 const navLinks = [
   { name: "Dashboard", href: "/admin" },
   { name: "Donations", href: "/admin/donations" },
+  { name: "Gallery Manager", href: "/admin/gallery-manager" }, // ✅ Add this line
   { name: "Gallery", href: "/admin/gallery" },
-  { name: "Settings", href: "/admin/settings" },
+//   { name: "Settings", href: "/admin/settings" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

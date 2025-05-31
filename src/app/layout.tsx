@@ -62,13 +62,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${montserrat.variable} ${lato.variable}`}>
       <body className="font-sans bg-white text-slate-900 antialiased">
-        {/* Automatically skip Navbar/Footer for /admin via nested layouts */}
-        {/**
-         * All /admin routes should be placed in:
-         * src/app/admin/(dashboard)/layout.tsx
-         * and that layout will not include Navbar/Footer.
-         */}
-        {children}
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

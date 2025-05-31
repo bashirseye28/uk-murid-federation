@@ -1,7 +1,7 @@
 'use client'
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from 'next/image'
+import Link from 'next/link'
 import {
   Facebook,
   Instagram,
@@ -9,11 +9,11 @@ import {
   MessageCircle,
   Mail,
   Phone,
-} from 'lucide-react';
-import BackToTop from '@/components/Footer/BackToTop'; // ✅ Import your BackToTop component
+} from 'lucide-react'
+import BackToTop from '@/components/Footer/BackToTop'
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear()
 
   return (
     <footer className="bg-mourid-navy/90 text-white pt-12 pb-10 px-6 relative">
@@ -24,7 +24,7 @@ export default function Footer() {
         {/* Column 1: Logo + About */}
         <div>
           <Image
-            src="/logo.png" // ✅ replace with your logo path
+            src="/logo.png"
             alt="UK Murid Federation Logo"
             width={100}
             height={100}
@@ -40,31 +40,22 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-bold mb-4 tracking-wide">Quick Links</h4>
           <ul className="space-y-3 text-sm">
-            <li>
-              <Link href="/" className="hover:underline focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="hover:underline focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/gallery" className="hover:underline focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
-                Gallery
-              </Link>
-            </li>
-            <li>
-              <Link href="/donate" className="hover:underline focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
-                Donate
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:underline focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
-                Contact
-              </Link>
-            </li>
+            {[
+              { name: 'Home', href: '/' },
+              { name: 'About', href: '/about' },
+              { name: 'Gallery', href: '/gallery' },
+              { name: 'Donate', href: '/donate' },
+              { name: 'Contact', href: '/contact' },
+            ].map(link => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="hover:underline focus:outline-none focus:ring-2 focus:ring-mourid-green rounded"
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -73,17 +64,24 @@ export default function Footer() {
           <h4 className="text-lg font-bold mb-4 tracking-wide">Contact Us</h4>
           <p className="text-sm mb-3 flex items-center gap-2">
             <Mail size={16} aria-hidden="true" />
-            <a href="mailto:yastabshirunabinihmatin@hotmail.com" className="underline hover:text-mourid-green focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
+            <a
+              href="mailto:yastabshirunabinihmatin@hotmail.com"
+              className="underline hover:text-mourid-green focus:outline-none focus:ring-2 focus:ring-mourid-green rounded"
+            >
               yastabshirunabinihmatin@hotmail.com
             </a>
           </p>
           <p className="text-sm mb-4 flex items-center gap-2">
             <Phone size={16} aria-hidden="true" />
-            <a href="tel:+44747201030" className="underline hover:text-mourid-green focus:outline-none focus:ring-2 focus:ring-mourid-green rounded">
+            <a
+              href="tel:+447472010308"
+              className="underline hover:text-mourid-green focus:outline-none focus:ring-2 focus:ring-mourid-green rounded"
+            >
               +44 7472 010308
             </a>
           </p>
 
+          {/* Social Icons */}
           <div className="flex space-x-4 mt-6">
             <a
               href="https://www.facebook.com/people/UK-Murid-Communities-Federation-Cic/100089097771167/"
@@ -125,6 +123,25 @@ export default function Footer() {
             >
               <MessageCircle className="w-5 h-5" aria-hidden="true" />
             </a>
+            <a
+              href="https://t.me/UKmurid"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Telegram"
+              title="Telegram"
+              className="hover:text-mourid-green transition"
+            >
+              {/* Inline Telegram Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                className="w-5 h-5"
+                aria-hidden="true"
+              >
+                <path d="M9.46 14.87 9.19 19c.43 0 .62-.19.86-.41l2.08-1.97 4.3 3.15c.79.43 1.36.2 1.56-.74l2.82-13.3h.01c.25-1.2-.45-1.67-1.22-1.4L1.78 10.3c-1.18.46-1.17 1.1-.2 1.4l5.46 1.7 12.66-7.98c.6-.38 1.15-.17.7.25" />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
@@ -134,5 +151,5 @@ export default function Footer() {
         © {currentYear} UK Murid Federation. All rights reserved.
       </div>
     </footer>
-  );
+  )
 }

@@ -15,7 +15,7 @@ import ContactCTA from '@/components/About/ContactCTA'
 export const metadata = {
   title: 'About Us | UK Murid Federation',
   description:
-    'Learn more about the UK Murid Federation: our mission, vision, and commitment to uniting Mourid Dahiras across the United Kingdom.',
+    'Learn more about the UK Murid Federation: our mission, vision, and commitment to uniting Murid Dahiras across the United Kingdom.',
 }
 
 export default function AboutPage() {
