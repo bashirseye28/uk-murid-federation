@@ -130,12 +130,12 @@ export default function DonationForm({
           <MapPin className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-mourid-blue" />
           <input
             {...register("cityOrDahira", {
-              required: "City or Dahira is required.",
+              required: "City or Daahira is required.",
             })}
             type="text"
             placeholder="Enter your City or Dahira"
             className={`${baseInput} ${errors.cityOrDahira ? "border-red-500" : ""}`}
-            aria-label="City or Dahira"
+            aria-label="City or Daahira"
           />
         </div>
         {errors.cityOrDahira && (
