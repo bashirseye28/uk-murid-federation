@@ -5,10 +5,12 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
+        pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'via.placeholder.com', // ✅ Add this
+        hostname: 'via.placeholder.com',
+        pathname: '/**',
       },
     ],
   },
