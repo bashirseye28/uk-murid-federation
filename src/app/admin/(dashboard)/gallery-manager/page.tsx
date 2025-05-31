@@ -20,6 +20,7 @@ interface GalleryItem {
   alt: string
   description: string
   video: string
+  createdAt?: number
 }
 
 export default function GalleryManagerPage() {
@@ -38,10 +39,19 @@ export default function GalleryManagerPage() {
   const pageSize = 6
 
   useEffect(() => {
-    fetch('/api/gallery')
-      .then((res) => res.json())
-      .then(setGallery)
+    fetchGallery()
   }, [])
+
+  const fetchGallery = async () => {
+    try {
+      const res = await fetch('/api/gallery')
+      const data = await res.json()
+      setGallery(data)
+    } catch (error) {
+      console.error('Failed to load gallery:', error)
+      toast.error('Failed to fetch gallery items')
+    }
+  }
 
   const handleDelete = async (itemToDelete: GalleryItem) => {
     const confirm = window.confirm('Are you sure you want to delete this item?')
@@ -86,24 +96,30 @@ export default function GalleryManagerPage() {
     if (editIndex === null) return
     setLoading(true)
     try {
-      const updatedItems = [...gallery]
-      updatedItems[editIndex] = editForm
+      const original = gallery[editIndex]
+      const updatedItem: GalleryItem = {
+        ...editForm,
+        createdAt: original.createdAt || Date.now()
+      }
 
+      // 1. Delete original
       await fetch('/api/gallery', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ index: editIndex })
       })
 
+      // 2. Post updated item
       const res = await fetch('/api/gallery', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editForm),
+        body: JSON.stringify(updatedItem),
       })
       if (!res.ok) throw new Error('Update failed')
 
-      const updated = await res.json()
-      setGallery(updated)
+      // 3. Refresh gallery
+      await fetchGallery()
+
       toast.success('Item updated')
       setIsEditing(false)
     } catch (err) {
@@ -154,7 +170,7 @@ export default function GalleryManagerPage() {
                       title={item.alt}
                       className="w-full aspect-video rounded mt-2"
                       allowFullScreen
-                    ></iframe>
+                    />
                   )}
                 </div>
                 <div className="flex gap-2 mt-4">
@@ -190,6 +206,7 @@ export default function GalleryManagerPage() {
         </>
       )}
 
+      {/* EDIT DIALOG */}
       <Dialog open={isEditing} onOpenChange={setIsEditing}>
         <DialogContent className="bg-white p-6 rounded-md shadow-lg max-w-lg w-full">
           <DialogHeader>
