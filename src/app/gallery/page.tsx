@@ -1,5 +1,6 @@
 import GalleryHero from "@/components/Gallery/GalleryHero";
 import GalleryMedia from "@/components/Gallery/GalleryMedia";
+import ContactCTA from "@/components/About/ContactCTA";
 
 export const metadata = {
   title: "Gallery | UK Murid Federation",
@@ -15,6 +16,8 @@ export default function GalleryPage() {
         {/* Media Section */}
         <GalleryMedia />
       {/* Tabs + Content sections will go here next */}
+
+      <ContactCTA />
     </>
   );
 }

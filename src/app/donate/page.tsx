@@ -9,6 +9,7 @@ import { donationCampaigns, DonationCampaign } from "@/data/donationCampaigns";
 import { findCampaignById } from "@/lib/donations";
 import JaayanteCard from "@/components/Donate/JaayanteCard";
 import CustomAmountSection from "@/components/Donate/CustomAmountSection";
+import ContactCTA from "@/components/About/ContactCTA";
 
 type ExtendedDonationItem = DonationItem & { campaign?: string };
 
@@ -83,6 +84,8 @@ export default function DonatePage() {
           />
         </div>
       )}
+
+      <ContactCTA />
     </>
   );
 }
