@@ -2,9 +2,9 @@
 
 import Hero from '@/components/Home/Hero';
 import AboutPreview from '@/components/Home/AboutPreview';
+import MissionVision from '@/components/About/MissionVision';
 import BambaDaySection from '@/components/Home/BambaDaySection';
 import GalleryPreview from '@/components/Home/GalleryPreview';
-import JaayanteCard from '@/components/Donate/JaayanteCard';
 import ContactCTA from '@/components/About/ContactCTA';
 
 export default function HomePage() {
@@ -17,12 +17,10 @@ export default function HomePage() {
     <>
       <Hero />
       <AboutPreview />
+      <MissionVision />
+      {/* Bamba Day section */} 
       <BambaDaySection />
       <GalleryPreview />
-      <JaayanteCard
-        campaignName="Barkeelu Bamba Day 2025"
-        onSelect={handleSelect}
-      />
       <ContactCTA />
     </>
   );
