@@ -27,20 +27,23 @@ export default function SuccessPage({
 }: SuccessPageProps) {
   const handleDownload = useCallback(async () => {
     const doc = new jsPDF();
-    const logoUrl = 'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
+    const logoUrl =
+      'https://res.cloudinary.com/dnmoy5wua/image/upload/v1746670607/logo_fdhstb.png';
 
-    const logoBase64 = await fetch(logoUrl)
-      .then((res) => res.blob())
-      .then(
-        (blob) =>
-          new Promise<string>((resolve) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result as string);
-            reader.readAsDataURL(blob);
-          })
-      );
+    // Load logo with error handling
+    try {
+      const blob = await fetch(logoUrl).then((res) => res.blob());
+      const logoBase64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject('Failed to convert logo to base64');
+        reader.readAsDataURL(blob);
+      });
 
-    doc.addImage(logoBase64, 'PNG', 85, 10, 40, 40);
+      doc.addImage(logoBase64, 'PNG', 85, 10, 40, 40);
+    } catch (err) {
+      console.warn('Failed to load logo for PDF:', err);
+    }
 
     let y = 60;
     doc.setFontSize(20).setFont('helvetica', 'bold');
@@ -54,7 +57,7 @@ export default function SuccessPage({
     y += 7;
     doc.text('Email: yastabshirunabinihmatin@hotmail.com', 20, y);
     y += 7;
-    doc.text('Website: https:/murid.co.uk', 20, y);
+    doc.text('Website: https://murid.co.uk', 20, y); // Fixed
 
     y += 10;
     doc.line(20, y, 190, y);
@@ -108,7 +111,16 @@ export default function SuccessPage({
     );
 
     doc.save('donation-receipt.pdf');
-  }, [donorName, donorEmail, donorPhone, cause, amount, date, referenceId, childrenUnder16]);
+  }, [
+    donorName,
+    donorEmail,
+    donorPhone,
+    cause,
+    amount,
+    date,
+    referenceId,
+    childrenUnder16,
+  ]);
 
   return (
     <section className="py-16 px-6 bg-white min-h-screen flex flex-col items-center justify-center text-center">
@@ -120,6 +132,7 @@ export default function SuccessPage({
             width={100}
             height={100}
             className="object-contain"
+            loading="lazy"
           />
         </div>
 
@@ -140,21 +153,39 @@ export default function SuccessPage({
         </p>
 
         <div className="text-left text-sm text-slate-700 space-y-3 border-t pt-4">
-          <p><span className="font-semibold">Donor Name:</span> {donorName}</p>
-          <p><span className="font-semibold">Email:</span> {donorEmail}</p>
-          <p><span className="font-semibold">Phone:</span> {donorPhone}</p>
-          <p><span className="font-semibold">Reference:</span> {cause}</p>
-          <p><span className="font-semibold">Amount:</span> £{amount}</p>
-          <p><span className="font-semibold">Date:</span> {date}</p>
-          <p><span className="font-semibold">Reference ID:</span> {referenceId}</p>
+          <p>
+            <span className="font-semibold">Donor Name:</span> {donorName}
+          </p>
+          <p>
+            <span className="font-semibold">Email:</span> {donorEmail}
+          </p>
+          <p>
+            <span className="font-semibold">Phone:</span> {donorPhone}
+          </p>
+          <p>
+            <span className="font-semibold">Reference:</span> {cause}
+          </p>
+          <p>
+            <span className="font-semibold">Amount:</span> £{amount}
+          </p>
+          <p>
+            <span className="font-semibold">Date:</span> {date}
+          </p>
+          <p>
+            <span className="font-semibold">Reference ID:</span> {referenceId}
+          </p>
           {typeof childrenUnder16 === 'number' && (
-            <p><span className="font-semibold">Children Under 16:</span> {childrenUnder16}</p>
+            <p>
+              <span className="font-semibold">Children Under 16:</span>{' '}
+              {childrenUnder16}
+            </p>
           )}
         </div>
 
         <div className="flex justify-center gap-4 mt-6">
           <button
             onClick={handleDownload}
+            aria-label="Download PDF receipt"
             className="bg-mourid-green text-white px-6 py-2 rounded-md text-sm font-semibold hover:bg-mourid-blue transition"
           >
             Download Receipt

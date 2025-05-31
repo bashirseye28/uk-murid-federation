@@ -5,7 +5,7 @@ import Stripe from 'stripe';
 import { saveDonationToFirebase } from '@/lib/firebaseDonations';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-04-30.basil',
+  apiVersion: '2025-05-28.basil',
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
