@@ -31,7 +31,7 @@ export default function ContactHero() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-2xl text-white">
-        <h1 className="text-3xl md:text-5xl font-heading font-bold mb-4 drop-shadow-md">
+        <h1 className="text-3xl text-white md:text-5xl font-heading font-bold mb-4 drop-shadow-md">
           Get in Touch
         </h1>
         <p className="text-white/80 text-base md:text-lg">
