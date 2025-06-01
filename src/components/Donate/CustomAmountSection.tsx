@@ -82,7 +82,7 @@ export default function CustomAmountSection({ onDonate }: CustomAmountSectionPro
               onClick={handleSubmit}
               className="w-full rounded-md bg-mourid-green px-6 py-3 text-sm font-semibold text-white transition hover:bg-mourid-blue"
             >
-              Continue to Form & Payment
+              Continue to Payment
             </button>
           </div>
         </div>
