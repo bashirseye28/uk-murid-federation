@@ -53,6 +53,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ price, onBack, onSu
             id="name"
             type="text"
             placeholder="Enter your full name"
+            autoFocus
             {...register('name', { required: 'Name is required.' })}
             className={`${baseInput} ${errors.name ? 'border-red-500' : ''}`}
           />
