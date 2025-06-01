@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from "react";
+import Head from 'next/head'; // ✅ import Head
+
 import DonateHero from "@/components/Donate/DonateHero";
 import WhyDonateSection from "@/components/Donate/WhyDonateSection";
 import DonationGrid, { DonationItem } from "@/components/Donate/DonationGrid";
@@ -43,6 +45,27 @@ export default function DonatePage() {
 
   return (
     <>
+
+          {/* ✅ SEO Head Tags */}
+      <Head>
+        <title>{`Donate – ${campaign.name} | UK Murid Federation`}</title>
+        <meta
+          name="description"
+          content={`Support the UK Murid Federation during ${campaign.name}. Your donation helps us preserve and promote the teachings of Cheikh Ahmadou Bamba.`}
+        />
+        <meta
+          name="keywords"
+          content="Donate Murid, Murid UK Donation, UK Murid Federation, Bamba Day, Addiya, Sufism UK, Islamic Charity, Dahira UK, Cheikh Ahmadou Bamba, Jaayante"
+        />
+        <meta property="og:title" content={`Donate – ${campaign.name}`} />
+        <meta
+          property="og:description"
+          content={`Make a meaningful impact by supporting the UK Murid Federation's ${campaign.name}.`}
+        />
+        <meta property="og:url" content="https://murid.co.uk/donate" />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://murid.co.uk/donate" />
+      </Head>
       <DonateHero campaignName={campaign.name} />
       <WhyDonateSection />
 
