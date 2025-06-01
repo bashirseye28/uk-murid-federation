@@ -3,7 +3,7 @@ type DonationCSVRow = {
   donor_email: string;
   phone?: string;
   dahira_city?: string;
-  children_under_16?: string | number;
+//   children_under_16?: string | number;
   donation_date: string;
   campaign: string;
   item_title: string;
@@ -33,7 +33,7 @@ export function exportToCSV({
     donor_email: "Email",
     phone: "Phone Number",
     dahira_city: "Dahira / City",
-    children_under_16: "Children Under 16",
+    // children_under_16: "Children Under 16",
     donation_date: "Date",
     campaign: "Campaign",
     item_title: "Reference",
