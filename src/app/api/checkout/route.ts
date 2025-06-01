@@ -1,3 +1,4 @@
+//api/checkout/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
@@ -60,7 +61,7 @@ export async function POST(req: NextRequest) {
       campaign: item.campaign,
       amount_gbp: String(item.price),
       donation_date: donationDate,
-      city_or_dahira: donor.cityOrDahira.trim(),
+      dahira_city: donor.cityOrDahira.trim(), // ✅ fixed key
       children_under_16: donor.childrenUnder16?.toString() || '',
     }
 

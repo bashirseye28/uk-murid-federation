@@ -17,11 +17,11 @@ type CSVExportOptions = {
 };
 
 /**
- * Exports donation data as a clean, readable CSV file.
+ * Exports donation data as a clean, professional CSV file.
  */
 export function exportToCSV({
   data,
-  filename = "donations.csv",
+  filename,
 }: CSVExportOptions) {
   if (!data || data.length === 0) {
     console.warn("No data to export.");
@@ -57,6 +57,13 @@ export function exportToCSV({
           value = value ? "Yes" : "No";
         }
 
+        if (
+          ["phone", "dahira_city", "children_under_16"].includes(field) &&
+          (value === undefined || value === null || value === "")
+        ) {
+          value = "Not provided";
+        }
+
         const safeValue =
           typeof value === "string" ? value.replace(/"/g, '""') : value;
 
@@ -66,11 +73,16 @@ export function exportToCSV({
   });
 
   const csvContent = [csvHeaders.join(","), ...csvRows].join("\n");
-  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const csvWithBOM = "\uFEFF" + csvContent;
+
+  const today = new Date().toISOString().slice(0, 10);
+  const finalFilename = filename || `donations_${today}.csv`;
+
+  const blob = new Blob([csvWithBOM], { type: "text/csv;charset=utf-8;" });
 
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.setAttribute("download", filename);
+  link.setAttribute("download", finalFilename);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

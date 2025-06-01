@@ -1,3 +1,4 @@
+//app/// donate/success/page.tsx
 import Stripe from 'stripe';
 import { redirect } from 'next/navigation';
 import SuccessPage from './SuccessPage';
