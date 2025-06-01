@@ -268,7 +268,7 @@ export default function DonationsPage() {
               <TableHead>Email</TableHead>
               <TableHead>Campaign</TableHead>
               <TableHead>Reference</TableHead>
-              <TableHead>Dahira / City</TableHead>
+              <TableHead>City or Dahira</TableHead>
               <TableHead>Amount</TableHead>
               <TableHead>Date</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -282,7 +282,7 @@ export default function DonationsPage() {
                   <TableCell>{d.donor_email}</TableCell>
                   <TableCell>{d.campaign}</TableCell>
                   <TableCell>{d.item_title}</TableCell>
-                  <TableCell>{d.dahira_city || '-'}</TableCell>
+                  <TableCell>{d.dahira_city?.trim() || 'Not Provided'}</TableCell>
                   <TableCell className="text-mourid-green font-semibold">
                     £{d.amount_gbp}
                   </TableCell>

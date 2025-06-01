@@ -23,7 +23,8 @@ export async function GET() {
         campaign: p.metadata?.campaign || "General",
         item_title: p.metadata?.item_title || "-", // Labelled as "Reference" in UI
         is_anonymous: p.metadata?.is_anonymous === "true",
-        dahira_city: p.metadata?.city_or_dahira || "",
+        dahira_city: p.metadata?.dahira_city || "", // ✅ corrected key
+        donor_phone: p.metadata?.donor_phone || "",
         children_under_16: p.metadata?.children_under_16 || "",
       }));
 
