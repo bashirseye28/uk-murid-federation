@@ -15,7 +15,7 @@ const members: Member[] = [
   {
     name: "S Lamine Ndiaye",
     title: "Chairman (Diewrign)",
-    image: "/profile.jpg",
+    image: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748818263/eaqxmnjr1cdjtg0tfrpe.jpg",
     responsibilities: [
       "Provide leadership and direction to the organisation.",
       "Preside over meetings and represent the organisation externally.",
