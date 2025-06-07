@@ -15,7 +15,7 @@ const members: Member[] = [
   {
     name: "S Lamine Ndiaye",
     title: "Chairman (Diewrign)",
-    image: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748818263/eaqxmnjr1cdjtg0tfrpe.jpg",
+    image: "https://res.cloudinary.com/drulwmdhg/image/upload/v1749276358/aagkyacabvwwucbdawvm.png",
     responsibilities: [
       "Provide leadership and direction to the organisation.",
       "Preside over meetings and represent the organisation externally.",
@@ -26,7 +26,7 @@ const members: Member[] = [
   {
     name: "S Khassim Dieng",
     title: "General Secretary",
-    image: "/profile.jpg",
+    image: "https://res.cloudinary.com/drulwmdhg/image/upload/v1749276358/wryyaudmk3ebr9mcg1uz.png",
     responsibilities: [
       "Manage administrative functions and maintain records.",
       "Support leaders and ensure proper documentation.",
