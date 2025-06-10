@@ -10,7 +10,7 @@ export default function SoxnaDiarraCard() {
       {/* Banner Image */}
       <div className="relative h-56 sm:h-72 w-full">
         <Image
-          src="https://res.cloudinary.com/drulwmdhg/image/upload/c_crop,ar_4:3/v1748492377/mtsquc8wwoictifxxxvz.jpg"
+          src="https://res.cloudinary.com/drulwmdhg/image/upload/v1749593944/rdcofrn4u4sytwabbmx0.png"
           alt="Soxna Diarra Federation"
           fill
           className="object-cover"
