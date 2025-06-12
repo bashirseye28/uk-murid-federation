@@ -6,7 +6,7 @@ export const dahiras = [
     name: "Fathul Badiih",
     leader: "S. Moustapha Gueye",
     city: "Manchester",
-    logo: "https://res.cloudinary.com/drulwmdhg/image/upload/v1748647169/gc4gzkma1wbxoqmxk5d1.jpg",
+    logo: "https://res.cloudinary.com/drulwmdhg/image/upload/v1749766383/w3pt1swfkunjhxvw3uuy.png",
     whatsapp: "https://wa.me/447562715821"
   },
   {
